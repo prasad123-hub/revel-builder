@@ -5,6 +5,7 @@ import "@/styles/globals.css"
 import type { AppProps } from "next/app"
 import { Caveat, Inter } from "next/font/google"
 import LocalFont from "next/font/local"
+import { ClerkProvider } from "@clerk/nextjs"
 
 const fontSans = Inter({ subsets: ["latin"], variable: "--font-sans" })
 const fontHand = Caveat({ subsets: ["latin"], variable: "--font-hand" })
@@ -31,7 +32,21 @@ export default function App({ Component, pageProps }: AppProps) {
           fontCal.variable
         )}
       >
-        <Component {...pageProps} />
+        <ClerkProvider
+          {...pageProps}
+          appearance={{
+            layout: {
+              logoImageUrl: "/revel.svg",
+              logoPlacement: "inside",
+            },
+            variables: {
+              colorPrimary: "#1a202c",
+              colorText: "#1a202c",
+            },
+          }}
+        >
+          <Component {...pageProps} />
+        </ClerkProvider>
       </main>
     </>
   )
