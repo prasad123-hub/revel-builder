@@ -2,11 +2,10 @@ import Image from "next/image"
 
 import { Button } from "@/components/ui/button"
 import { InfiniteTestimonialCards } from "@/components/infinite-testimonial-cards"
-import { Layout } from "@/components/layout"
 
-export default function Home() {
+export default async function LandingPage() {
   return (
-    <Layout>
+    <>
       <section aria-label="hero-section" className="py-12 md:py-14 lg:py-20">
         <h3 className="bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-fuchsia-500 via-red-600 to-orange-400 bg-clip-text font-hand text-2xl font-semibold text-transparent">
           Testimonials Made Easy
@@ -14,13 +13,15 @@ export default function Home() {
         <h1 className="max-w-xl py-6 font-cal text-4xl font-bold md:text-5xl">
           Collecting testimonials doesn't get easier than this
         </h1>
-        <Button className="mt-2">Get Started for Free</Button>
+        <Button size="sm" className="mt-2">
+          Get Started for Free
+        </Button>
 
         <div className="mt-12">
           <Image
             src="https://framerusercontent.com/images/EGTVSqL50owfg7FWdDiNTuPwaE.png?scale-down-to=2048"
             alt="Revel Hero"
-            width={1200}
+            width={1300}
             height={800}
           />
         </div>
@@ -46,7 +47,7 @@ export default function Home() {
                 takes less than 30 seconds to create.
               </p>
             </div>
-            <div className="relative mt-10 lg:col-span-5 lg:-mr-8 lg:mt-0 xl:col-span-6">
+            <div className="relative mt-10 lg:col-span-5 lg:mt-0 xl:col-span-6">
               <Image
                 src="https://framerusercontent.com/images/EGTVSqL50owfg7FWdDiNTuPwaE.png?scale-down-to=2048"
                 alt="Revel Hero"
@@ -94,6 +95,6 @@ export default function Home() {
         </h1>
         <InfiniteTestimonialCards />
       </section>
-    </Layout>
+    </>
   )
 }

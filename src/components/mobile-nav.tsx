@@ -1,3 +1,5 @@
+"use client"
+
 import { useState } from "react"
 import Image from "next/image"
 import Link, { LinkProps } from "next/link"
@@ -50,27 +52,13 @@ export function MobileNav({ items }: MobileNavProps) {
                   key={item.href}
                   href={item.href}
                   onOpenChange={setOpen}
-                  className="hover:text-green-600"
+                  className=""
                 >
                   {item.title}
                 </MobileLink>
               )
           )}
         </div>
-
-        {/* {isSignedIn && (
-          <>
-            <span
-              className={`mt-6 inline-flex items-center  rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset ${
-                subscriptionStatus?.isPro
-                  ? "bg-red-500/10 text-red-400 ring-red-500/20"
-                  : "bg-green-500/10 text-green-400 ring-green-500/20"
-              }`}
-            >
-              {subscriptionStatus?.isPro ? "Pro" : "Free Trial"}
-            </span>
-          </>
-        )} */}
       </SheetContent>
     </Sheet>
   )

@@ -10,36 +10,42 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+ model Project {
+  id        String   @id @default(cuid()) @map("_id")
+  name      String
+  companyUrl String?
+  type      String?
+  projectOwnerId String
+  forms     Form[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-model Post {
-  id       String    @id @default(auto()) @map("_id") @db.ObjectId
-  slug     String    @unique
-  title    String
-  body     String
-  author   User      @relation(fields: [authorId], references: [id])
-  authorId String    @db.ObjectId
-  comments Comment[]
-}
+  @@unique([projectOwnerId])
 
-model User {
-  id      String   @id @default(auto()) @map("_id") @db.ObjectId
-  clerkUserId String @unique
-  name    String?
-  address Address?
-  posts   Post[]
-}
+  // for table name we use @@map directive and for field name we use @map directive
+  @@map("projects")
+ }
 
-model Comment {
-  id      String @id @default(auto()) @map("_id") @db.ObjectId
-  comment String
-  post    Post   @relation(fields: [postId], references: [id])
-  postId  String @db.ObjectId
-}
+  model Form {
+    id        String   @id @default(cuid()) @map("_id")
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    name      String
+    project   Project? @relation(fields: [projectId], references: [id])
+    projectId String?
+    fields    Field[]
 
-// Address is an embedded document
-type Address {
-  street String
-  city   String
-  state  String
-  zip    String
-}
+    @@map("forms")
+  }
+
+  model Field {
+    id        String   @id @default(cuid()) @map("_id")
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    name      String
+    type      String
+    form      Form?    @relation(fields: [formId], references: [id])
+    formId    String?
+
+    @@map("fields")
+  }
