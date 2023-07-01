@@ -17,15 +17,22 @@ const fontCal = LocalFont({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <main
-      className={cn(
-        "min-h-screen font-sans antialiased",
-        fontSans.variable,
-        fontHand.variable,
-        fontCal.variable
-      )}
-    >
-      <Component {...pageProps} />
-    </main>
+    <>
+      <style jsx global>{`
+        html {
+          font-family: ${fontSans.style.fontFamily};
+        }
+      `}</style>
+      <main
+        className={cn(
+          "min-h-screen font-sans antialiased",
+          fontSans.variable,
+          fontHand.variable,
+          fontCal.variable
+        )}
+      >
+        <Component {...pageProps} />
+      </main>
+    </>
   )
 }
