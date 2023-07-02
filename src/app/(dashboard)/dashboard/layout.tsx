@@ -12,7 +12,7 @@ export default async function LandingLayoutProps({
   return (
     <div className="flex min-h-screen flex-col">
       <SiteHeader userId={user?.id as string} />
-      <main className="mx-auto min-h-[80vh] max-w-7xl flex-1 px-4 md:px-8 lg:px-12">
+      <main className="mx-auto w-full max-w-7xl flex-1 px-4 md:px-8 lg:px-12">
         {children}
       </main>
       <SiteFooter />
