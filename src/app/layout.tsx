@@ -8,6 +8,7 @@ import { fontCal, fontHand, fontSans } from "@/lib/fonts"
 import { cn } from "@/lib/utils"
 import { Toaster } from "@/components/ui/toaster"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
+import { TrpcProvider } from "@/components/trpc-provider"
 
 export const metadata: Metadata = {
   title: {
@@ -57,7 +58,9 @@ export default async function RootLayout({ children }: RootLayoutProps) {
               fontHand.variable
             )}
           >
-            <div className="flex-1">{children}</div>
+            <TrpcProvider>
+              <div className="flex-1">{children}</div>
+            </TrpcProvider>
 
             <Toaster />
             <TailwindIndicator />

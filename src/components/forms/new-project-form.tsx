@@ -3,34 +3,50 @@
 import React from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 
-import { cn } from "@/lib/utils"
+import { trpc } from "@/lib/trpc"
+import { CreateProject } from "@/lib/validator"
 
-import { Button, buttonVariants } from "../ui/button"
+import { Button } from "../ui/button"
 import { Input } from "../ui/input"
 import { Label } from "../ui/label"
 import { Textarea } from "../ui/textarea"
 
-interface NewProjectInputInterface {
-  companyName: string
-  description: string
-  companyUrl: string
-  companyLogo: File[]
-}
-
 export function NewProjectform() {
+  /**
+   * React Hook Form
+   */
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<NewProjectInputInterface>()
+  } = useForm<CreateProject>()
 
-  const onSubmit: SubmitHandler<NewProjectInputInterface> = (
-    data: NewProjectInputInterface
-  ) => console.log(data)
+  /**
+   * TRPC Mutation
+   */
+  const mutation = trpc.create.useMutation()
 
-  const fileObject = watch("companyLogo")
-  console.log(fileObject)
+  /**
+   * Submit handler
+   * @param data
+   */
+
+  const onSubmit: SubmitHandler<CreateProject> = async (
+    data: CreateProject
+  ) => {
+    mutation.mutate(data, {
+      onSuccess: (data, variables, context) => {
+        console.log("success", data)
+      },
+      onError: (error) => {
+        console.log(error)
+      },
+      onSettled: () => {
+        console.log("settled")
+      },
+    })
+  }
 
   return (
     <>
@@ -62,8 +78,7 @@ export function NewProjectform() {
               placeholder="e.g. Revel is a company that makes awesome products."
               className="mt-2"
               id="companyDescription"
-              {...register("description", { required: true })}
-              //   style={{ resize: "none" }}
+              {...register("companyDescription", { required: true })}
             />
             {errors.companyName && errors.companyName?.type === "required" ? (
               <p className="mt-2 text-xs text-destructive">
@@ -93,39 +108,10 @@ export function NewProjectform() {
               </p>
             )}
           </div>
-          <div className="flex items-center space-x-10">
-            <div>
-              <Input
-                type="file"
-                className="mt-2"
-                {...register("companyLogo", { required: true })}
-              />
-              {errors.companyName && errors.companyName?.type === "required" ? (
-                <p className="mt-2 text-xs text-destructive">
-                  *Company logo is required
-                </p>
-              ) : (
-                <p className="mt-2 text-xs text-muted-foreground">
-                  This is your company logo
-                </p>
-              )}
-            </div>
-            <div>
-              {fileObject && (
-                <div className="ml-10">
-                  {fileObject[0] && (
-                    <img
-                      src={URL.createObjectURL(fileObject[0])}
-                      alt=""
-                      width={80}
-                    />
-                  )}
-                </div>
-              )}
-            </div>
-          </div>
+
+          <div></div>
           <Button type="submit" className="mt-4">
-            Create Project
+            {mutation.isLoading ? "Creating Project ..." : "Create Project"}
           </Button>
         </form>
       </div>
