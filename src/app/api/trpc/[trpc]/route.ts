@@ -1,20 +1,22 @@
+import { NextRequest } from "next/server"
 import {
   FetchCreateContextFnOptions,
   fetchRequestHandler,
 } from "@trpc/server/adapters/fetch"
 
-import { appRouter } from "../trpc-router"
+import { appRouter } from "@/app/server/router/root"
+import { createTRPCContext } from "@/app/server/trpc"
 
-const handler = (request: Request) => {
-  console.log(`incoming request ${request.url}`)
+const handler = (req: NextRequest) => {
+  console.log(`incoming request ${req.url}`)
   return fetchRequestHandler({
     endpoint: "/api/trpc",
-    req: request,
+    req: req,
     router: appRouter,
-    createContext: function (
-      opts: FetchCreateContextFnOptions
-    ): object | Promise<object> {
-      return {}
+    createContext: () => createTRPCContext({ req }),
+    onError: ({ error }) => {
+      console.log("Error in tRPC handler")
+      console.error(error)
     },
   })
 }

@@ -12,15 +12,14 @@ datasource db {
 
  model Project {
   id        String   @id @default(cuid()) @map("_id")
-  name      String
-  companyUrl String?
-  type      String?
+  companyName      String
+  companyDescription String
+  companyUrl String
+  companyLogo String
   projectOwnerId String
   forms     Form[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  @@unique([projectOwnerId])
 
   // for table name we use @@map directive and for field name we use @map directive
   @@map("projects")

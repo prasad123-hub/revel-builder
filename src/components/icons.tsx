@@ -21,6 +21,7 @@ import {
   SunMedium,
   Trash,
   Twitter,
+  Upload,
   User,
   X,
   type Icon as LucideIcon,
@@ -46,6 +47,7 @@ export const Icons = {
     </svg>
   ),
   close: X,
+  upload: Upload,
   spinner: Loader2,
   chevronLeft: ChevronLeft,
   chevronRight: ChevronRight,
