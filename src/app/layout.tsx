@@ -61,7 +61,6 @@ export default async function RootLayout({ children }: RootLayoutProps) {
             <TrpcProvider>
               <div className="flex-1">{children}</div>
             </TrpcProvider>
-
             <Toaster />
             <TailwindIndicator />
           </body>

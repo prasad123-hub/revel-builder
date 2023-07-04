@@ -26,6 +26,7 @@ export function NewProjectform() {
   const { user } = useUser()
   const [files, setFiles] = React.useState<FileWithPreview[] | null>(null)
   const [isPending, startTransition] = React.useTransition()
+  const [loading, setLoading] = React.useState<boolean>(false)
 
   // uploadthing
   const { isUploading, startUpload } = useUploadThing("productImage")
@@ -48,9 +49,8 @@ export function NewProjectform() {
   const onSubmit: SubmitHandler<CreateProject> = async (
     data: CreateProject
   ) => {
-    console.log(data)
-
     startTransition(async () => {
+      setLoading(true)
       try {
         // Upload images if data.images is an array of files
         const images = isArrayOfFile(data.companyLogo)
@@ -75,8 +75,10 @@ export function NewProjectform() {
 
         // If project is created, redirect to project page
         if (project) {
+          setLoading(false)
+          const name = project.companyName.split(".")[0].toLowerCase()
           toast.success("Project created successfully!")
-          router.push(`/dashboard/project/${project.id}`)
+          router.push(`/project/${name}`)
         }
       } catch (error) {
         error instanceof Error
@@ -166,8 +168,8 @@ export function NewProjectform() {
               disabled={isPending}
             />
           </div>
-          <Button type="submit" className="mt-4" disabled={isPending}>
-            {isPending ? "Creating..." : "Create Project"}
+          <Button type="submit" className="mt-4" disabled={loading}>
+            {loading ? "Creating..." : "Create Project"}
           </Button>
         </form>
       </div>

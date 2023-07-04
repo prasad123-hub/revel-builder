@@ -1,3 +1,5 @@
+import { z } from "zod"
+
 import { db } from "@/lib/db"
 import { CreateProject, createProjectSchema } from "@/lib/validator"
 import { procedure, protectedProcedure, router } from "@/app/server/trpc"
@@ -21,5 +23,22 @@ export const projectRouter = router({
       }
 
       return newProject
+    }),
+
+  getProjectById: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .query((opts) => {
+      // get project by id
+      const project = opts.ctx.db.project.findMany({
+        where: {
+          id: opts.input.id,
+        },
+      })
+
+      if (!project) {
+        throw new Error("Error getting project")
+      }
+
+      return project
     }),
 })
