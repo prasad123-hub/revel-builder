@@ -1,28 +1,11 @@
 import Link from "next/link"
+import { currentUser } from "@clerk/nextjs"
 
+import { db } from "@/lib/db"
 import { cn } from "@/lib/utils"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { EmptyPlaceholder } from "@/components/empty-placeholder"
 import { ProjectItem } from "@/components/project-item"
-
-const projects: Project[] = [
-  {
-    id: 1,
-    name: "Revel",
-    description: "Revel is a testimonial collection tool.",
-    url: "https://revel.netlify.app",
-    image: "/revel.svg",
-    createdAt: new Date(),
-  },
-  {
-    id: 2,
-    name: "Revel",
-    description: "Revel is a testimonial collection tool.",
-    url: "https://revel.netlify.app",
-    image: "/revel.svg",
-    createdAt: new Date(),
-  },
-]
 
 interface Project {
   id: number
@@ -34,6 +17,14 @@ interface Project {
 }
 
 export default async function DashbaordPage() {
+  const user = await currentUser()
+
+  const projects = await db.project.findMany({
+    where: {
+      projectOwnerId: user?.id,
+    },
+  })
+
   return (
     <>
       <div className="w-full py-12 md:py-14 lg:py-20">
@@ -58,7 +49,7 @@ export default async function DashbaordPage() {
         {projects.length > 0 ? (
           <>
             {projects.map((project) => (
-              <ProjectItem key={project.id} project={project as Project} />
+              <ProjectItem key={project.id} project={project} />
             ))}
           </>
         ) : (

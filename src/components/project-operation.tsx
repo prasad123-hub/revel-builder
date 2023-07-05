@@ -45,7 +45,7 @@ async function deleteSnap(snapId: string) {
 }
 
 interface ProjectOperationProps {
-  id: number
+  id: string
   title: string
 }
 
@@ -53,6 +53,8 @@ export function ProjectOperation({ id, title }: ProjectOperationProps) {
   const router = useRouter()
   const [showDeleteAlert, setShowDeleteAlert] = React.useState<boolean>(false)
   const [isDeleteLoading, setIsDeleteLoading] = React.useState<boolean>(false)
+
+  const project_name = title.split(".")[0].toLowerCase()
 
   return (
     <>
@@ -63,8 +65,8 @@ export function ProjectOperation({ id, title }: ProjectOperationProps) {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuItem>
-            <Link href={`/dashboard/collection/${id}`} className="flex w-full">
-              Edit
+            <Link href={`/project/${project_name}`} className="flex w-full">
+              View
             </Link>
           </DropdownMenuItem>
           <DropdownMenuSeparator />

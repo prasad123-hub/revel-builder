@@ -6,7 +6,8 @@ import Link from "next/link"
 import { UserButton, UserProfile, useUser } from "@clerk/nextjs"
 import { ArrowLeft, Download, FormInput, Heart, UserCircle } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
+import { Button, buttonVariants } from "@/components/ui/button"
 
 export function Sidebar() {
   const { user } = useUser()
@@ -18,10 +19,13 @@ export function Sidebar() {
           <Image src="/revel.svg" alt="Revel" width={30} height={30} />
         </div>
         <div className="px-6 pt-4">
-          <Button variant="ghost">
+          <Link
+            href="/dashboard"
+            className={cn(buttonVariants({ variant: "ghost", size: "sm" }))}
+          >
             <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Projects
-          </Button>
+            Back to All Projects
+          </Link>
         </div>
         <div className="space-y-4 py-4">
           <div className="px-3 py-2">
@@ -48,7 +52,7 @@ export function Sidebar() {
               Manage
             </h2>
             <div className="space-y-1">
-              <Button variant="secondary" className="w-full justify-start">
+              <Button variant="ghost" className="w-full justify-start">
                 <Heart className="mr-2 h-4 w-4" />
                 Testimonials
               </Button>
