@@ -17,12 +17,12 @@ export default async function LandingPage() {
           Get Started for Free
         </Button>
 
-        <div className="mt-12">
+        <div className="mx-auto mt-12 max-w-7xl">
           <Image
+            width={2000}
+            height={1000}
+            alt={`Cover Image for Revel`}
             src="https://framerusercontent.com/images/EGTVSqL50owfg7FWdDiNTuPwaE.png?scale-down-to=2048"
-            alt="Revel Hero"
-            width={1300}
-            height={800}
           />
         </div>
       </section>

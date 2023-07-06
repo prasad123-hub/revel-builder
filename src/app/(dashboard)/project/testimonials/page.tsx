@@ -15,11 +15,11 @@ async function getData(): Promise<Payment[]> {
   ]
 }
 
-export default async function DemoPage() {
+export default async function TestimonialPage() {
   const data = await getData()
 
   return (
-    <div className="mx-auto w-full">
+    <div className="mx-auto w-full ">
       <div>
         <h3 className="bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-fuchsia-500 via-red-600 to-orange-400 bg-clip-text font-hand text-xl font-semibold text-transparent">
           Collection of testimonials

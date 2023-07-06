@@ -68,7 +68,7 @@ export function ProjectItem({ project }: ProjectItemProps) {
       {/* <ProjectOperation id={project.id} title={project.companyName} /> */}
       <div className="space-x-2">
         <Link
-          href={`/project/${project_name}`}
+          href={`/project/testimonials?projectId=${project.id}`}
           className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
         >
           View Project

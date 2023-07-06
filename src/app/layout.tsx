@@ -59,7 +59,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
             )}
           >
             <TrpcProvider>
-              <div className="flex-1">{children}</div>
+              <div className="w-full flex-1">{children}</div>
             </TrpcProvider>
             <Toaster />
             <TailwindIndicator />

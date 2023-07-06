@@ -3,6 +3,7 @@
 import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
+import { useSearchParams } from "next/navigation"
 import { UserButton, UserProfile, useUser } from "@clerk/nextjs"
 import { ArrowLeft, Download, FormInput, Heart, UserCircle } from "lucide-react"
 
@@ -10,6 +11,8 @@ import { cn } from "@/lib/utils"
 import { Button, buttonVariants } from "@/components/ui/button"
 
 export function Sidebar() {
+  const searchParams = useSearchParams()
+  const projectId = searchParams.get("projectId")
   const { user } = useUser()
   return (
     <>
@@ -33,10 +36,16 @@ export function Sidebar() {
               Collect
             </h2>
             <div className="space-y-1">
-              <Button variant="ghost" className="w-full justify-start">
+              <Link
+                href={`/project/forms?projectId=${projectId}`}
+                className={cn(
+                  buttonVariants({ variant: "ghost" }),
+                  "w-full justify-start"
+                )}
+              >
                 <FormInput className="mr-2 h-4 w-4" />
                 Forms
-              </Button>
+              </Link>
               <Button variant="ghost" className="w-full justify-start">
                 <Download className="mr-2 h-4 w-4" />
                 Import Testimonials
@@ -52,10 +61,16 @@ export function Sidebar() {
               Manage
             </h2>
             <div className="space-y-1">
-              <Button variant="ghost" className="w-full justify-start">
+              <Link
+                href={`/project/testimonials?projectId=${projectId}`}
+                className={cn(
+                  buttonVariants({ variant: "ghost" }),
+                  "w-full justify-start"
+                )}
+              >
                 <Heart className="mr-2 h-4 w-4" />
                 Testimonials
-              </Button>
+              </Link>
             </div>
           </div>
         </div>

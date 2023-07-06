@@ -10,41 +10,33 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
- model Project {
-  id        String   @id @default(cuid()) @map("_id")
-  companyName      String
+model Project {
+  id                 String   @id @default(auto()) @map("_id") @db.ObjectId
+  companyName        String
   companyDescription String
-  companyUrl String
-  companyLogo String
-  projectOwnerId String
-  forms     Form[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  companyUrl         String
+  companyLogo        String
+  projectOwnerId     String
+  forms              Form[]
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
 
   // for table name we use @@map directive and for field name we use @map directive
   @@map("projects")
- }
+}
 
-  model Form {
-    id        String   @id @default(cuid()) @map("_id")
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    name      String
-    project   Project? @relation(fields: [projectId], references: [id])
-    projectId String?
-    fields    Field[]
+model Form {
+  id                  String   @id @default(auto()) @map("_id") @db.ObjectId
+  name                String
+  project             Project  @relation(fields: [projectId], references: [id])
+  projectId           String   @db.ObjectId
+  pageTitle           String
+  introductoryMessage String
+  promt               String
+  thankYouMessage     String
+  collectRating       Boolean  @default(true)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
 
-    @@map("forms")
-  }
-
-  model Field {
-    id        String   @id @default(cuid()) @map("_id")
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    name      String
-    type      String
-    form      Form?    @relation(fields: [formId], references: [id])
-    formId    String?
-
-    @@map("fields")
-  }
+  @@map("forms")
+}

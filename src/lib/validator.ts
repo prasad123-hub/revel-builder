@@ -12,3 +12,14 @@ export const createProjectSchema = z.object({
   projectOwnerId: z.string(),
 })
 export type CreateProject = z.infer<typeof createProjectSchema>
+
+export const createFormSchema = z.object({
+  name: z.string().min(1, "Please enter a name"),
+  projectId: z.string(),
+  pageTitle: z.string(),
+  introductoryMessage: z.string(),
+  promt: z.string(),
+  thankYouMessage: z.string(),
+  collectRating: z.boolean(),
+})
+export type CreateForm = z.infer<typeof createFormSchema>
