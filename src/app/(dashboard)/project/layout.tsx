@@ -1,12 +1,10 @@
 import { Sidebar } from "@/components/sidebar"
 
-interface LandingLayoutProps {
-  children: React.ReactNode
-}
-
 export default async function ProjectLayoutProps({
   children,
-}: LandingLayoutProps) {
+}: {
+  children: React.ReactNode
+}) {
   return (
     <div className="flex min-h-screen flex-col">
       <div className="relative flex h-screen items-start overflow-y-scroll">

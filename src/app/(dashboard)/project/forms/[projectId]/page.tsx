@@ -1,37 +1,25 @@
 import Link from "next/link"
+import { useSearchParams } from "next/navigation"
 
 import { db } from "@/lib/db"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 import { EmptyPlaceholder } from "@/components/empty-placeholder"
+import { FormItem } from "@/components/form-item"
 import { NewTestimonialForm } from "@/components/forms/new-testimonial-form"
 
-interface Props {
-  params: {}
-}
-
-export default async function TestimonialPage({
+export default async function FormsPage({
   params,
-  searchParams,
 }: {
-  params: { slug: string }
-  searchParams?: { [key: string]: string | string[] | undefined }
+  params: { projectId: string }
 }) {
-  const projectId = searchParams?.projectId
+  const projectId = params.projectId
 
   const forms = await db.form.findMany({
     where: {
-      projectId: projectId as string,
+      projectId: "64a6514264e7bb345a725311",
     },
   })
-
-  const project = await db.project.findUnique({
-    where: {
-      id: projectId as string,
-    },
-  })
-
-  console.log("project", project)
 
   return (
     <div className="py-12 lg:px-10 ">
@@ -45,12 +33,16 @@ export default async function TestimonialPage({
           </h1>
         </div>
         <div>
-          <NewTestimonialForm />
+          <NewTestimonialForm projectId={projectId} />
         </div>
       </div>
 
       {forms.length > 0 ? (
-        <p>Something is there</p>
+        <>
+          {forms.map((form) => (
+            <FormItem key={form.id} form={form} />
+          ))}
+        </>
       ) : (
         <>
           <div>

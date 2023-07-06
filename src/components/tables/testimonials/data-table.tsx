@@ -41,65 +41,66 @@ import {
 } from "@/components/ui/table"
 import { StarRating } from "@/components/star-rating"
 
-const data: Testimonial[] = [
+const testimonials: Testimonial[] = []
+
+const initialData: Testimonial[] = [
   {
     id: "m5gr84i9",
     designation: "CEO",
     name: "Prasad",
     testimonial:
       "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Inventore doloremque harum dignissimos rem, adipisci architecto doloribus eius cupiditate delectus consectetur",
-
     person:
       "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dXNlcnN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60",
     status: "Approved",
     email: "prasad@gmail.com",
   },
-  {
-    id: "3u1reuv4",
-    name: "Rajesh",
-    designation: "CEO",
-    testimonial:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Inventore doloremque harum dignissimos rem, adipisci architecto doloribus eius cupiditate delectus consectetur",
-    person:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dXNlcnN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60",
-
-    status: "Approved",
-    email: "Abe45@gmail.com",
-  },
-  {
-    id: "derv1ws0",
-    name: "Mahesh",
-    designation: "CEO",
-    testimonial:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Inventore doloremque harum dignissimos rem, adipisci architecto doloribus eius cupiditate delectus consectetur",
-
-    person:
-      "https://images.unsplash.com/photo-1586297135537-94bc9ba060aa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHVzZXJzfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60",
-    status: "Approved",
-    email: "Monserrat44@gmail.com",
-  },
-  {
-    id: "5kma53ae",
-    name: "Ramesh",
-    designation: "CEO",
-    testimonial:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Inventore doloremque harum dignissimos rem, adipisci architecto doloribus eius cupiditate delectus consectetur",
-    person:
-      "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHVzZXJzfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60",
-    status: "Approved",
-    email: "Silas22@gmail.com",
-  },
-  {
-    id: "bhqecj4p",
-    name: "Suresh",
-    designation: "CEO",
-    testimonial: "This is some testimonial text.",
-    person:
-      "https://images.unsplash.com/photo-1563237023-b1e970526dcb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzF8fHVzZXJzfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60",
-    status: "Unapproved",
-    email: "carmella@hotmail.com",
-  },
+  // {
+  //   id: "3u1reuv4",
+  //   name: "Rajesh",
+  //   designation: "CEO",
+  //   testimonial:
+  //     "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Inventore doloremque harum dignissimos rem, adipisci architecto doloribus eius cupiditate delectus consectetur",
+  //   person:
+  //     "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dXNlcnN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60",
+  //   status: "Approved",
+  //   email: "Abe45@gmail.com",
+  // },
+  // {
+  //   id: "derv1ws0",
+  //   name: "Mahesh",
+  //   designation: "CEO",
+  //   testimonial:
+  //     "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Inventore doloremque harum dignissimos rem, adipisci architecto doloribus eius cupiditate delectus consectetur",
+  //   person:
+  //     "https://images.unsplash.com/photo-1586297135537-94bc9ba060aa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHVzZXJzfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60",
+  //   status: "Approved",
+  //   email: "Monserrat44@gmail.com",
+  // },
+  // {
+  //   id: "5kma53ae",
+  //   name: "Ramesh",
+  //   designation: "CEO",
+  //   testimonial:
+  //     "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Inventore doloremque harum dignissimos rem, adipisci architecto doloribus eius cupiditate delectus consectetur",
+  //   person:
+  //     "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHVzZXJzfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60",
+  //   status: "Approved",
+  //   email: "Silas22@gmail.com",
+  // },
+  // {
+  //   id: "bhqecj4p",
+  //   name: "Suresh",
+  //   designation: "CEO",
+  //   testimonial: "This is some testimonial text.",
+  //   person:
+  //     "https://images.unsplash.com/photo-1563237023-b1e970526dcb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzF8fHVzZXJzfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60",
+  //   status: "Unapproved",
+  //   email: "carmella@hotmail.com",
+  // },
 ]
+
+const data = testimonials.length > 0 ? testimonials : initialData
 
 export type Testimonial = {
   id: string
@@ -320,7 +321,7 @@ export function DataTableDemo() {
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                  No results. Create and Share a form to get testimonials
                 </TableCell>
               </TableRow>
             )}

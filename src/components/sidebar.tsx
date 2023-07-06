@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { useSearchParams } from "next/navigation"
+import { usePathname, useSearchParams } from "next/navigation"
 import { UserButton, UserProfile, useUser } from "@clerk/nextjs"
 import { ArrowLeft, Download, FormInput, Heart, UserCircle } from "lucide-react"
 
@@ -11,9 +11,9 @@ import { cn } from "@/lib/utils"
 import { Button, buttonVariants } from "@/components/ui/button"
 
 export function Sidebar() {
-  const searchParams = useSearchParams()
-  const projectId = searchParams.get("projectId")
   const { user } = useUser()
+  const pathname = usePathname()
+  const projectId = pathname.split("/")[3]
   return (
     <>
       {/* Static sidebar for desktop */}
@@ -37,7 +37,7 @@ export function Sidebar() {
             </h2>
             <div className="space-y-1">
               <Link
-                href={`/project/forms?projectId=${projectId}`}
+                href={`/project/forms/${projectId}`}
                 className={cn(
                   buttonVariants({ variant: "ghost" }),
                   "w-full justify-start"

@@ -18,11 +18,9 @@ import {
 import { Input } from "../ui/input"
 import { Label } from "../ui/label"
 
-export function NewTestimonialForm() {
+export function NewTestimonialForm({ projectId }: { projectId: string }) {
   const router = useRouter()
   const [loading, setLoading] = useState<boolean>(false)
-  const searchParams = useSearchParams()
-  const projectId = searchParams.get("projectId")
   const [name, setName] = useState<string>("")
 
   const mutation = trpc.form.createForm.useMutation()
@@ -45,7 +43,7 @@ export function NewTestimonialForm() {
       if (res) {
         setLoading(false)
         toast.success("Form created successfully")
-        router.refresh()
+        router.push(`/form/c/${res.id}`)
       }
     } catch (error) {
       setLoading(false)

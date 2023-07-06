@@ -1,3 +1,9 @@
+import { FormEditor } from "@/components/form-editor"
+
 export default async function NewFormPage() {
-  return <div>New Form Page</div>
+  return (
+    <>
+      <FormEditor />
+    </>
+  )
 }

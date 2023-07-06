@@ -21,55 +21,51 @@ import { ProjectOperation } from "@/components/project-operation"
 import { Icons } from "./icons"
 import { Button, buttonVariants } from "./ui/button"
 
-interface Project {
+interface Form {
   id: string
-  companyName: string
-  companyDescription: string
-  companyUrl: string
-  companyLogo: string
-  projectOwnerId: string
+  name: string
   createdAt: Date
   updatedAt: Date
 }
 
-interface ProjectItemProps {
-  project: Project
+interface TestimonialItemProps {
+  form: Form
 }
 
-export function ProjectItem({ project }: ProjectItemProps) {
+export function FormItem({ form }: TestimonialItemProps) {
   const [showDeleteAlert, setShowDeleteAlert] = useState<boolean>(false)
   const [isDeleteLoading, setIsDeleteLoading] = useState<boolean>(false)
 
   return (
-    <div className="flex items-center justify-between border border-border py-4 pr-8">
-      <div className="mx-8">
+    <div className="flex items-center justify-between border border-border px-8 py-4">
+      {/* <div className="mx-8">
         <Image
           src={project.companyLogo}
           width={32}
           height={32}
           alt={project.companyLogo}
         />
-      </div>
+      </div> */}
       <div className="grid grow items-start gap-1">
         <Link
-          href={`/project/testimonials/${project.id}`}
+          href={`/form/c/${form.id}`}
           className="font-semibold hover:underline"
         >
-          {project.companyName}
+          {form.name}
         </Link>
         <div>
           <p className="text-sm text-muted-foreground">
-            {formatDate(project.createdAt?.toString() as string)}
+            {formatDate(form.createdAt?.toString() as string)}
           </p>
         </div>
       </div>
       {/* <ProjectOperation id={project.id} title={project.companyName} /> */}
       <div className="space-x-2">
         <Link
-          href={`/project/testimonials/${project.id}`}
+          href={`/form/c/${form.id}`}
           className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
         >
-          View Project
+          View Form
         </Link>
         <Button
           onClick={() => setShowDeleteAlert(true)}
@@ -118,7 +114,7 @@ export function ProjectItem({ project }: ProjectItemProps) {
   )
 }
 
-ProjectItem.Skeleton = function SnapItemSkeleton() {
+FormItem.Skeleton = function FormItemSkeleton() {
   return (
     <div className="p-4">
       <div className="space-y-3">
