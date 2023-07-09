@@ -1,19 +1,38 @@
 "use client"
 
-import React from "react"
+import React, { useContext, useEffect } from "react"
 import Link from "next/link"
+import { FormDetailsContext } from "@/context/formDetailsContext"
+import { Form } from "@/types"
 import { ArrowLeft } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 
 import { FormDetails } from "./form-details"
+import { StepFourForm } from "./forms/steps/step-four-form"
+import { StepOneForm } from "./forms/steps/step-one-form"
+import { StepThreeForm } from "./forms/steps/step-three-form"
+import { StepTwoForm } from "./forms/steps/step-two-form"
 
-export function FormEditor() {
+interface FormEditorProps {
+  formId: string
+  projectId: string
+}
+
+export function FormEditor({ formId, projectId }: FormEditorProps) {
+  const { state, dispatch } = useContext(FormDetailsContext)
+
+  useEffect(() => {
+    return () => {
+      dispatch({ type: "details/reset" })
+    }
+  }, [])
+
   return (
     <div className="grid min-h-screen grid-cols-1 gap-8 lg:grid-cols-2">
       <div className="flex h-full flex-col justify-between p-8">
         <div>
-          <Link href="/form/create">
+          <Link href={`/project/forms/${projectId}`}>
             <Button variant="ghost" size="sm">
               <ArrowLeft size={16} className="mr-2" />
               Forms
@@ -42,7 +61,20 @@ export function FormEditor() {
           <Button className="w-full">Save Changes</Button>
         </div>
       </div>
-      <div className="h-full bg-yellow-300">Narkhedkar</div>
+      <div className="flex h-full items-center justify-center bg-slate-200 p-4 py-8">
+        {/* <FormPreview /> */}
+        {state.steps.step1 ? (
+          <StepOneForm readOnly />
+        ) : state.steps.step2 ? (
+          <StepTwoForm readOnly />
+        ) : state.steps.step3 ? (
+          <StepThreeForm />
+        ) : state.steps.step4 ? (
+          <StepFourForm />
+        ) : (
+          <StepOneForm />
+        )}
+      </div>
     </div>
   )
 }

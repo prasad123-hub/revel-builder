@@ -3,7 +3,7 @@
 import React, { useState } from "react"
 import { Rating } from "react-simple-star-rating"
 
-export function StarRating({ readOnly = false }) {
+export function StarRating({ readOnly }: { readOnly?: boolean }) {
   const [rating, setRating] = useState(4)
 
   // Catch Rating value
@@ -22,7 +22,7 @@ export function StarRating({ readOnly = false }) {
     console.log(value, index)
 
   return (
-    <div className="flex items-center">
+    <div className="my-4 flex items-center">
       {/* set initial value */}
       <Rating
         className="flex items-center"

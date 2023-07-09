@@ -1,4 +1,5 @@
-import React from "react"
+import React, { useContext } from "react"
+import { FormDetailsContext } from "@/context/formDetailsContext"
 import { ChevronDown, Hand } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -13,45 +14,16 @@ import { Label } from "./ui/label"
 import { Textarea } from "./ui/textarea"
 
 export function FormDetails() {
-  const [welcomePage, setWelcomPage] = React.useState(true)
-  const [promtPage, setPromtPage] = React.useState(false)
-  const [thankYouPage, setThankYouPage] = React.useState(false)
-  const [attribution, setAttribution] = React.useState(false)
-
-  function handleWelcomePage() {
-    setWelcomPage(!welcomePage)
-    setPromtPage(false)
-    setThankYouPage(false)
-    setAttribution(false)
-  }
-
-  function handlePromtPage() {
-    setWelcomPage(false)
-    setPromtPage(!promtPage)
-    setThankYouPage(false)
-    setAttribution(false)
-  }
-
-  function handleThankYouPage() {
-    setWelcomPage(false)
-    setPromtPage(false)
-    setThankYouPage(!thankYouPage)
-    setAttribution(false)
-  }
-
-  function handleAttribution() {
-    setWelcomPage(false)
-    setPromtPage(false)
-    setThankYouPage(false)
-    setAttribution(!attribution)
-  }
+  const { state, dispatch } = useContext(FormDetailsContext)
 
   return (
     <>
       <div className="space-y-4">
         <Collapsible
-          open={welcomePage}
-          onOpenChange={handleWelcomePage}
+          open={state.steps.step1}
+          onOpenChange={() => {
+            dispatch({ type: "details/step1" })
+          }}
           className="w-full space-y-2"
         >
           <div className="flex items-center space-x-4 border-b border-border px-4 pb-4">
@@ -61,7 +33,9 @@ export function FormDetails() {
                   <ChevronDown
                     size={16}
                     className={`${
-                      welcomePage ? "rotate-180 duration-300" : "duration-300"
+                      state.steps.step1
+                        ? "rotate-180 duration-300"
+                        : "duration-300"
                     }`}
                   />
                   <span className="sr-only">Toggle</span>
@@ -79,21 +53,38 @@ export function FormDetails() {
           <CollapsibleContent className="space-y-2">
             <div>
               <Label htmlFor="title">Page Title</Label>
-              <Input id="title" value={"Share a Testimonial"} />
+              <Input
+                id="title"
+                value={state.pageTitle}
+                onChange={(e) => {
+                  dispatch({
+                    type: "details/pageTitle",
+                    payload: e.target.value,
+                  })
+                }}
+              />
             </div>
             <div className="mt-4">
               <Label htmlFor="introMessage">Introductory Message</Label>
               <Textarea
                 id="introMessage"
-                value="Do you love using our product? We'd love to hear about it!"
-                className="h-[80px]"
+                value={state.introMessage}
+                className="h-[100px]"
+                onChange={(e) => {
+                  dispatch({
+                    type: "details/introMessage",
+                    payload: e.target.value,
+                  })
+                }}
               />
             </div>
           </CollapsibleContent>
         </Collapsible>
         <Collapsible
-          open={promtPage}
-          onOpenChange={handlePromtPage}
+          open={state.steps.step2}
+          onOpenChange={() => {
+            dispatch({ type: "details/step2" })
+          }}
           className="w-full space-y-2"
         >
           <div className="flex items-center space-x-4 border-b border-border px-4 pb-4">
@@ -103,7 +94,9 @@ export function FormDetails() {
                   <ChevronDown
                     size={16}
                     className={`${
-                      promtPage ? "rotate-180 duration-300" : "duration-300"
+                      state.steps.step2
+                        ? "rotate-180 duration-300"
+                        : "duration-300"
                     }`}
                   />
                   <span className="sr-only">Toggle</span>
@@ -123,16 +116,20 @@ export function FormDetails() {
               <Label htmlFor="promt">Promt</Label>
               <Textarea
                 id="promt"
-                value="- What do you like most about us?
-                - Would you recommend us to a friend?"
+                value={state.promt}
                 className="h-[150px]"
+                onChange={(e) => {
+                  dispatch({ type: "details/promt", payload: e.target.value })
+                }}
               />
             </div>
           </CollapsibleContent>
         </Collapsible>
         <Collapsible
-          open={attribution}
-          onOpenChange={handleAttribution}
+          open={state.steps.step3}
+          onOpenChange={() => {
+            dispatch({ type: "details/step3" })
+          }}
           className="w-full space-y-2"
         >
           <div className="flex items-center space-x-4 border-b border-border px-4 pb-4">
@@ -142,7 +139,9 @@ export function FormDetails() {
                   <ChevronDown
                     size={16}
                     className={`${
-                      attribution ? "rotate-180 duration-300" : "duration-300"
+                      state.steps.step3
+                        ? "rotate-180 duration-300"
+                        : "duration-300"
                     }`}
                   />
                   <span className="sr-only">Toggle</span>
@@ -160,17 +159,19 @@ export function FormDetails() {
             </CollapsibleTrigger>
           </div>
           <CollapsibleContent className="space-y-2">
-            <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
-              @radix-ui/colors
-            </div>
-            <div className="rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
-              @stitches/react
+            <div className="mt-4">
+              <p className="text-mute-foreground text-sm">
+                This page is used for collecting user information. Like name,
+                email, profile image, designation etc.
+              </p>
             </div>
           </CollapsibleContent>
         </Collapsible>
         <Collapsible
-          open={thankYouPage}
-          onOpenChange={handleThankYouPage}
+          open={state.steps.step4}
+          onOpenChange={() => {
+            dispatch({ type: "details/step4" })
+          }}
           className="w-full space-y-2"
         >
           <div className="flex items-center space-x-4 border-b border-border px-4 pb-4">
@@ -180,7 +181,9 @@ export function FormDetails() {
                   <ChevronDown
                     size={16}
                     className={`${
-                      thankYouPage ? "rotate-180 duration-300" : "duration-300"
+                      state.steps.step4
+                        ? "rotate-180 duration-300"
+                        : "duration-300"
                     }`}
                   />
                   <span className="sr-only">Toggle</span>
@@ -202,8 +205,14 @@ export function FormDetails() {
               <Label htmlFor="thankYouMessage">Thank You Message</Label>
               <Textarea
                 id="thankYouMessage"
-                value="hope you enjoy using our product."
+                value={state.thankYouMessage}
                 className="h-[80px]"
+                onChange={(e) => {
+                  dispatch({
+                    type: "details/thankYouMessage",
+                    payload: e.target.value,
+                  })
+                }}
               />
             </div>
           </CollapsibleContent>

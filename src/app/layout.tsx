@@ -1,6 +1,7 @@
 import "@/styles/globals.css"
 
 import { Metadata } from "next"
+import { FormDetailsProvider } from "@/context/formDetailsContext"
 import { ClerkProvider } from "@clerk/nextjs"
 
 import { siteConfig } from "@/config/site"
@@ -59,7 +60,9 @@ export default async function RootLayout({ children }: RootLayoutProps) {
             )}
           >
             <TrpcProvider>
-              <div className="w-full flex-1">{children}</div>
+              <FormDetailsProvider>
+                <div className="w-full flex-1">{children}</div>
+              </FormDetailsProvider>
             </TrpcProvider>
             <Toaster />
             <TailwindIndicator />
