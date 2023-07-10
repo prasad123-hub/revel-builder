@@ -26,17 +26,35 @@ model Project {
 }
 
 model Form {
-  id                  String   @id @default(auto()) @map("_id") @db.ObjectId
+  id                  String    @id @default(auto()) @map("_id") @db.ObjectId
   name                String
-  project             Project  @relation(fields: [projectId], references: [id])
-  projectId           String   @db.ObjectId
+  project             Project   @relation(fields: [projectId], references: [id])
+  projectId           String    @db.ObjectId
   pageTitle           String
   introductoryMessage String
   promt               String
   thankYouMessage     String
-  collectRating       Boolean  @default(true)
-  createdAt           DateTime @default(now())
-  updatedAt           DateTime @updatedAt
+  collectRating       Boolean   @default(true)
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+  responses           Respose[]
 
   @@map("forms")
+}
+
+model Respose {
+  id                      String   @id @default(auto()) @map("_id") @db.ObjectId
+  form                    Form     @relation(fields: [formId], references: [id])
+  formId                  String   @db.ObjectId
+  projectId               String   @db.ObjectId
+  customerName            String
+  customerEmail           String
+  customerProfileImageUrl String
+  customerDesignation     String
+  testimonial             String
+  rating                  Int
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+
+  @@map("responses")
 }

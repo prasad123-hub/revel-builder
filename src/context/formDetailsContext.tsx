@@ -16,6 +16,14 @@ type InitialStateType = {
     step3: boolean
     step4: boolean
   }
+  customerResponse: {
+    testimonialText: string
+    testimonialRating: number
+    customerName: string
+    customerEmail: string
+    customerAvatar: string
+    customerDesignation: string
+  }
 }
 
 const detailsData: InitialStateType = {
@@ -34,6 +42,14 @@ const detailsData: InitialStateType = {
     step2: false,
     step3: false,
     step4: false,
+  },
+  customerResponse: {
+    testimonialText: "",
+    testimonialRating: 4,
+    customerName: "",
+    customerEmail: "",
+    customerAvatar: "",
+    customerDesignation: "",
   },
 }
 
@@ -124,6 +140,22 @@ function reducer(state: InitialStateType, action: any) {
         introMessage: action.payload.introMessage,
         promt: action.payload.promt,
         thankYouMessage: action.payload.thankYouMessage,
+      }
+    case "details/customerResponse/testimonialText":
+      return {
+        ...state,
+        customerResponse: {
+          ...state.customerResponse,
+          testimonialText: action.payload,
+        },
+      }
+    case "details/customerResponse/testimonialRating":
+      return {
+        ...state,
+        customerResponse: {
+          ...state.customerResponse,
+          testimonialRating: action.payload,
+        },
       }
     default:
       // return error

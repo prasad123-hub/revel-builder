@@ -1,8 +1,9 @@
 "use client"
 
-import React from "react"
+import React, { useContext } from "react"
 import Image from "next/image"
-import { Edit } from "lucide-react"
+import { FormDetailsContext } from "@/context/formDetailsContext"
+import { ArrowLeft, Edit } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -11,11 +12,29 @@ import { Textarea } from "@/components/ui/textarea"
 import { ProfileImageUploader } from "@/components/profile-image-uploader"
 import { StarRating } from "@/components/star-rating"
 
-export function StepThreeForm({ readOnly }: { readOnly?: boolean }) {
+export function StepThreeForm({
+  readOnly,
+  projectId,
+  formId,
+}: {
+  readOnly?: boolean
+  projectId?: string
+  formId?: string
+}) {
+  const { state, dispatch } = useContext(FormDetailsContext)
   return (
-    <div className="relative w-full max-w-lg rounded-xl border border-border bg-white px-8 py-6 shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px]">
-      <div>
+    <div className="relative mx-auto w-full max-w-lg rounded-xl border border-border bg-white px-8 py-6 shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px]">
+      <div className="flex items-center justify-between">
         <Image src="/revel.svg" alt="Revel Logo" width={40} height={40} />
+        <Button
+          onClick={() => dispatch({ type: "details/step1" })}
+          variant="outline"
+          size="sm"
+          disabled={readOnly}
+        >
+          <ArrowLeft size={16} className="mr-2" />
+          Back
+        </Button>
       </div>
       <h4 className="mt-8 font-cal text-2xl font-bold">Almost Done 🙌🏻</h4>
       <div className="mt-4">

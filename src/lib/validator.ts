@@ -36,3 +36,16 @@ export const updateFormSchema = z.object({
 })
 
 export type UpdateForm = z.infer<typeof updateFormSchema>
+
+export const createResponseScheme = z.object({
+  formId: z.string(),
+  projectId: z.string(),
+  rating: z.number(),
+  testimonial: z.string(),
+  customerEmail: z.string(),
+  customerName: z.string(),
+  customerDesignation: z.string(),
+  customerProfilePhotoUrl: z.string(),
+})
+
+export type CreateResponse = z.infer<typeof createResponseScheme>

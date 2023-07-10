@@ -122,9 +122,9 @@ export function FormEditor({ form, project }: FormEditorProps) {
         ) : state.steps.step2 ? (
           <StepTwoForm readOnly />
         ) : state.steps.step3 ? (
-          <StepThreeForm />
+          <StepThreeForm readOnly />
         ) : state.steps.step4 ? (
-          <StepFourForm />
+          <StepFourForm readOnly />
         ) : (
           <StepOneForm />
         )}
