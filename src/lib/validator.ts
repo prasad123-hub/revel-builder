@@ -45,7 +45,7 @@ export const createResponseScheme = z.object({
   customerEmail: z.string(),
   customerName: z.string(),
   customerDesignation: z.string(),
-  customerProfilePhotoUrl: z.string(),
+  customerProfileImageUrl: z.string(),
 })
 
 export type CreateResponse = z.infer<typeof createResponseScheme>

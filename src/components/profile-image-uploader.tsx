@@ -15,12 +15,10 @@ import type {
 } from "react-hook-form"
 import { toast } from "sonner"
 
-import { cn, formatBytes } from "@/lib/utils"
+import { formatBytes } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
-import { Icons } from "@/components/icons"
 
-import { Label } from "./ui/label"
+import { Input } from "./ui/input"
 
 interface FileDialogProps<TFieldValues extends FieldValues>
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -43,15 +41,13 @@ export function ProfileImageUploader<TFieldValues extends FieldValues>({
   },
   maxSize = 1024 * 1024 * 2,
   maxFiles = 1,
-  //   files,
-  //   setFiles,
+  files,
+  setFiles,
   isUploading = false,
   disabled = false,
   className,
   ...props
 }: FileDialogProps<TFieldValues>) {
-  const [files, setFiles] = React.useState<FileWithPreview[] | null>(null)
-
   const onDrop = React.useCallback(
     (acceptedFiles: FileWithPath[], rejectedFiles: FileRejection[]) => {
       setValue(
@@ -106,56 +102,9 @@ export function ProfileImageUploader<TFieldValues extends FieldValues>({
 
   return (
     <>
-      {/* <div className="sm:max-w-[480px]">
-        <Label>Upload a Profile Photo</Label>
-        <div
-          {...getRootProps()}
-          className={cn(
-            "relative mt-8 flex w-full cursor-pointer items-center rounded-lg border-2 border-dashed border-muted-foreground/25 px-5 py-2.5 text-center transition hover:bg-muted/25",
-            "ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-            isDragActive && "border-muted-foreground/50",
-            disabled && "pointer-events-none opacity-60",
-            className
-          )}
-          {...props}
-        >
-          {files?.length ? (
-            <div className="grid gap-5">
-              {files?.map((file, i) => (
-                <FileCard
-                  key={i}
-                  i={i}
-                  name={name}
-                  setValue={setValue}
-                  files={files}
-                  setFiles={setFiles}
-                  file={file}
-                />
-              ))}
-            </div>
-          ) : (
-            <span className="inline-block h-10 w-10 overflow-hidden rounded-full bg-gray-100">
-              <svg
-                className="h-full w-full text-gray-300"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-              </svg>
-            </span>
-          )}
-          <input {...getInputProps()} />
-          <div className="flex w-full items-center">
-            <Button className="ml-4" size="sm">
-              Pick an Image
-            </Button>
-          </div>
-        </div>
-      </div> */}
-      <div {...getRootProps()} {...props} className="mt-6">
-        <Label>Your Photo</Label>
-        <input {...getInputProps()} />
-        <div className="mt-2 flex items-center space-x-4">
+      <div {...getRootProps()} {...props} className="flex items-center">
+        <Input {...getInputProps()} id={props.id} disabled={disabled} />
+        <div className="">
           <div>
             {files?.length ? (
               <div className="grid gap-5">
@@ -182,9 +131,6 @@ export function ProfileImageUploader<TFieldValues extends FieldValues>({
                 </svg>
               </span>
             )}
-          </div>
-          <div>
-            <Button size="sm">Pick an Image</Button>
           </div>
         </div>
       </div>

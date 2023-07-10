@@ -42,7 +42,7 @@ export function StepTwoForm({ readOnly }: { readOnly?: boolean }) {
         disabled={readOnly}
         onChange={(e) =>
           dispatch({
-            type: "details/customerResponese/testimonialText",
+            type: "details/customerResponse/testimonialText",
             payload: e.target.value,
           })
         }

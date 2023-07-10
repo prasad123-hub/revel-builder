@@ -1,6 +1,12 @@
 import React, { useContext } from "react"
 import { FormDetailsContext } from "@/context/formDetailsContext"
-import { ChevronDown, Hand } from "lucide-react"
+import {
+  ChevronDown,
+  Contact,
+  Hand,
+  MessageSquare,
+  PartyPopper,
+} from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -103,9 +109,9 @@ export function FormDetails() {
                 </Button>
                 <h6 className="inline-flex items-center font-cal font-medium">
                   <span className="inline-block">Response Page (Step 2/4)</span>
-                  <Hand
+                  <MessageSquare
                     size={16}
-                    className="ml-3 mt-1 rotate-45 text-purple-600"
+                    className="ml-3 mt-1 text-orange-600"
                   />
                 </h6>
               </div>
@@ -150,10 +156,7 @@ export function FormDetails() {
                   <span className="inline-block">
                     Attribution Page (Step 3/4)
                   </span>
-                  <Hand
-                    size={16}
-                    className="ml-3 mt-1 rotate-45 text-purple-600"
-                  />
+                  <Contact size={16} className="ml-3 mt-1 text-green-600" />
                 </h6>
               </div>
             </CollapsibleTrigger>
@@ -192,9 +195,9 @@ export function FormDetails() {
                   <span className="inline-block">
                     Thank You Page (Step 4/4)
                   </span>
-                  <Hand
+                  <PartyPopper
                     size={16}
-                    className="ml-3 mt-1 rotate-45 text-purple-600"
+                    className="ml-3 mt-1 text-yellow-600"
                   />
                 </h6>
               </div>

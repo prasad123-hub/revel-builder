@@ -5,7 +5,7 @@ import { FormDetailsContext } from "@/context/formDetailsContext"
 export function StepFourForm({ readOnly }: { readOnly?: boolean }) {
   const { state, dispatch } = useContext(FormDetailsContext)
   return (
-    <div className="relative w-full max-w-lg rounded-xl border border-border bg-white px-8 py-6 shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px]">
+    <div className="relative mx-auto w-full max-w-lg rounded-xl border border-border bg-white px-8 py-6 shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px]">
       <div>
         <Image src="/revel.svg" alt="Revel Logo" width={40} height={40} />
       </div>

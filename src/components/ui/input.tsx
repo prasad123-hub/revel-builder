@@ -14,12 +14,12 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     // if type is file, then return a button with text Upload Logo
     if (type === "file") {
       return (
-        <label className="flex h-9 w-[160px] flex-col items-start justify-start rounded-md bg-background text-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+        <label className="flex min-h-min w-[120px] flex-col items-start justify-start rounded-md bg-background text-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
           <input type={type} className="hidden" ref={ref} {...props} />
           <span
             className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
           >
-            Upload Compnay Logo
+            Pick an Image
           </span>
         </label>
       )
