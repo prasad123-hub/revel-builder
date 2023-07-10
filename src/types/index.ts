@@ -16,3 +16,14 @@ export type Form = {
   createdAt: Date
   updatedAt: Date
 }
+
+export type Project = {
+  id: string
+  companyName: string
+  companyDescription: string
+  companyUrl: string
+  companyLogo: string
+  projectOwnerId: string
+  createdAt: Date
+  updatedAt: Date
+}

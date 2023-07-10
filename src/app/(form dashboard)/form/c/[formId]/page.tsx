@@ -1,4 +1,4 @@
-import { Form } from "@/types"
+import { Form, Project } from "@/types"
 
 import { db } from "@/lib/db"
 import { FormEditor } from "@/components/form-editor"
@@ -12,18 +12,17 @@ export default async function NewFormPage({
     where: {
       id: params.formId,
     },
-    select: {
-      id: true,
-      projectId: true,
+  })
+
+  const project = await db.project.findUnique({
+    where: {
+      id: form?.projectId as string,
     },
   })
 
   return (
     <>
-      <FormEditor
-        formId={form?.id as string}
-        projectId={form?.projectId as string}
-      />
+      <FormEditor form={form as Form} project={project as Project} />
     </>
   )
 }

@@ -1,11 +1,14 @@
 "use client"
 
-import React, { useContext, useEffect } from "react"
+import React, { useContext, useEffect, useTransition } from "react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { FormDetailsContext } from "@/context/formDetailsContext"
-import { Form } from "@/types"
+import { Form, Project } from "@/types"
 import { ArrowLeft } from "lucide-react"
+import { toast } from "sonner"
 
+import { trpc } from "@/lib/trpc"
 import { Button } from "@/components/ui/button"
 
 import { FormDetails } from "./form-details"
@@ -15,24 +18,73 @@ import { StepThreeForm } from "./forms/steps/step-three-form"
 import { StepTwoForm } from "./forms/steps/step-two-form"
 
 interface FormEditorProps {
-  formId: string
-  projectId: string
+  form: Form
+  project: Project
 }
 
-export function FormEditor({ formId, projectId }: FormEditorProps) {
+export function FormEditor({ form, project }: FormEditorProps) {
   const { state, dispatch } = useContext(FormDetailsContext)
+  const [isPending, startTransition] = useTransition()
+  const [loading, setLoading] = React.useState<boolean>(false)
+  const router = useRouter()
 
   useEffect(() => {
+    dispatch({
+      type: "details/company",
+      payload: {
+        companyName: project.companyName,
+        companyLogo: project.companyLogo,
+        companyWebsite: project.companyUrl,
+      },
+    })
+    dispatch({
+      type: "details/setForm",
+      payload: {
+        pageTitle: form.pageTitle,
+        introMessage: form.introductoryMessage,
+        promt: form.promt,
+        thankYouMessage: form.thankYouMessage,
+      },
+    })
     return () => {
       dispatch({ type: "details/reset" })
     }
-  }, [])
+  }, [form, project])
+
+  const mutation = trpc.form.updateFormDetails.useMutation()
+  const handleSubmit = async () => {
+    setLoading(true)
+    try {
+      startTransition(async () => {
+        const updatedForm = await mutation.mutateAsync({
+          id: form.id,
+          pageTitle: state.pageTitle,
+          promt: state.promt,
+          introductoryMessage: state.introMessage,
+          thankYouMessage: state.thankYouMessage,
+          collectRating: true,
+          name: form.name,
+          projectId: form.projectId,
+        })
+        if (updatedForm) {
+          setLoading(false)
+          toast.success("Form updated successfully.")
+          router.push(`/project/forms/${project.id}`)
+          router.refresh()
+        }
+      })
+    } catch (error) {
+      error instanceof Error
+        ? toast.error(error.message)
+        : toast.error("Something went wrong, please try again.")
+    }
+  }
 
   return (
     <div className="grid min-h-screen grid-cols-1 gap-8 lg:grid-cols-2">
       <div className="flex h-full flex-col justify-between p-8">
         <div>
-          <Link href={`/project/forms/${projectId}`}>
+          <Link href={`/project/forms/${project.id}`}>
             <Button variant="ghost" size="sm">
               <ArrowLeft size={16} className="mr-2" />
               Forms
@@ -58,7 +110,9 @@ export function FormEditor({ formId, projectId }: FormEditorProps) {
           </div>
         </div>
         <div className="w-full px-8 pt-8">
-          <Button className="w-full">Save Changes</Button>
+          <Button onClick={handleSubmit} className="w-full" disabled={loading}>
+            {loading ? "Saving..." : "Save Changes"}
+          </Button>
         </div>
       </div>
       <div className="flex h-full items-center justify-center bg-slate-200 p-4 py-8">

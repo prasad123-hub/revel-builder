@@ -18,8 +18,7 @@ export function StarRating({ readOnly }: { readOnly?: boolean }) {
 
   const onPointerEnter = () => console.log("Enter")
   const onPointerLeave = () => console.log("Leave")
-  const onPointerMove = (value: number, index: number) =>
-    console.log(value, index)
+  const onPointerMove = (value: number, index: number) => console.log()
 
   return (
     <div className="my-4 flex items-center">
@@ -34,7 +33,6 @@ export function StarRating({ readOnly }: { readOnly?: boolean }) {
         onPointerMove={onPointerMove}
         initialValue={rating}
         readonly={readOnly}
-        /* Available Props */
       />
     </div>
   )

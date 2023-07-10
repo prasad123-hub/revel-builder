@@ -17,7 +17,7 @@ export default async function FormsPage({
 
   const forms = await db.form.findMany({
     where: {
-      projectId: "64a6514264e7bb345a725311",
+      projectId: projectId,
     },
   })
 
@@ -33,7 +33,7 @@ export default async function FormsPage({
           </h1>
         </div>
         <div>
-          <NewTestimonialForm projectId={projectId} />
+          <NewTestimonialForm projectId={projectId} formLength={forms.length} />
         </div>
       </div>
 

@@ -1,7 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import { useContext, useState, useTransition } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
+import { FormDetailsContext } from "@/context/formDetailsContext"
 import { toast } from "sonner"
 
 import { trpc } from "@/lib/trpc"
@@ -18,64 +19,92 @@ import {
 import { Input } from "../ui/input"
 import { Label } from "../ui/label"
 
-export function NewTestimonialForm({ projectId }: { projectId: string }) {
+export function NewTestimonialForm({
+  projectId,
+  formLength,
+}: {
+  projectId: string
+  formLength: number
+}) {
+  const { state, dispatch } = useContext(FormDetailsContext)
   const router = useRouter()
+  const [isPending, startTransition] = useTransition()
+
   const [loading, setLoading] = useState<boolean>(false)
   const [name, setName] = useState<string>("")
 
   const mutation = trpc.form.createForm.useMutation()
-  const handleSubmit = async () => {
-    setLoading(true)
-    try {
-      const res = await mutation.mutateAsync({
-        name: "Testimonial Form",
-        pageTitle: "Share a testimonial!",
-        introductoryMessage:
-          "We genuinely value your feedback and the opportunity to serve you better. Thank you in advance for taking the time to share your thoughts. Your testimonial will not only make a difference to us but also assist others in making informed decisions about our products/services.",
-        collectRating: true,
-        promt:
-          "Overall, what would you say is the biggest value or advantage of using our product/service?",
-        thankYouMessage:
-          "Thank you so much for your support! We appreciate your support and we hope you enjoy using our product.",
-        projectId: projectId as string,
-      })
+  const handleSubmit = () => {
+    startTransition(async () => {
+      setLoading(true)
+      try {
+        // Create New Form
+        const form = await mutation.mutateAsync({
+          projectId,
+          name: name,
+          pageTitle: state.pageTitle,
+          promt: state.promt,
+          introductoryMessage: state.introMessage,
+          thankYouMessage: state.thankYouMessage,
+          collectRating: true,
+        })
 
-      if (res) {
-        setLoading(false)
-        toast.success("Form created successfully")
-        router.push(`/form/c/${res.id}`)
+        // If project is created, redirect to project page
+        if (form) {
+          setLoading(false)
+          toast.success("Form created successfully.")
+          router.push(`/form/c/${form.id}`)
+        }
+      } catch (error) {
+        error instanceof Error
+          ? toast.error(error.message)
+          : toast.error("Something went wrong, please try again.")
       }
-    } catch (error) {
-      setLoading(false)
-      toast.error("Something went wrong")
-      router.refresh()
-    }
+    })
   }
 
+  console.log(formLength)
   return (
     <>
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button>Create New</Button>
-        </DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Create a form</DialogTitle>
-            <DialogDescription>
-              You can create different forms to collect different testimonial
-              types.
-            </DialogDescription>
-          </DialogHeader>
-          <Label>Form Name</Label>
-          <Input
-            placeholder="Enter a form name"
-            onChange={(e) => setName(e.target.value)}
-          />
-          <Button onClick={handleSubmit} className="w-full" disabled={loading}>
-            {loading ? "Creating..." : "Create a Form"}
-          </Button>
-        </DialogContent>
-      </Dialog>
+      {formLength >= 1 ? (
+        <Button
+          onClick={() =>
+            toast.error(
+              "As of now, you can only create only one form per project"
+            )
+          }
+          className="w-full"
+        >
+          Create New
+        </Button>
+      ) : (
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button>Create New</Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Create a form</DialogTitle>
+              <DialogDescription>
+                You can create different forms to collect different testimonial
+                types.
+              </DialogDescription>
+            </DialogHeader>
+            <Label>Form Name</Label>
+            <Input
+              placeholder="Enter a form name"
+              onChange={(e) => setName(e.target.value)}
+            />
+            <Button
+              onClick={handleSubmit}
+              className="w-full"
+              disabled={loading}
+            >
+              {loading ? "Creating..." : "Create a Form"}
+            </Button>
+          </DialogContent>
+        </Dialog>
+      )}
     </>
   )
 }

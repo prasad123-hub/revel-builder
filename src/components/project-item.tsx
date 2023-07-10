@@ -42,12 +42,13 @@ export function ProjectItem({ project }: ProjectItemProps) {
 
   return (
     <div className="flex items-center justify-between border border-border py-4 pr-8">
-      <div className="mx-8">
+      <div className="mx-8 w-[150px]">
         <Image
           src={project.companyLogo}
           width={32}
           height={32}
           alt={project.companyLogo}
+          className="mr-2 h-8 w-auto object-cover"
         />
       </div>
       <div className="grid grow items-start gap-1">

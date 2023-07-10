@@ -1,7 +1,11 @@
 import { z } from "zod"
 
 import { db } from "@/lib/db"
-import { CreateProject, createProjectSchema } from "@/lib/validator"
+import {
+  createFormSchema,
+  CreateProject,
+  createProjectSchema,
+} from "@/lib/validator"
 import { procedure, protectedProcedure, router } from "@/app/server/trpc"
 
 export const projectRouter = router({
@@ -29,7 +33,7 @@ export const projectRouter = router({
     .input(z.object({ id: z.string() }))
     .query((opts) => {
       // get project by id
-      const project = opts.ctx.db.project.findMany({
+      const project = opts.ctx.db.project.findFirst({
         where: {
           id: opts.input.id,
         },

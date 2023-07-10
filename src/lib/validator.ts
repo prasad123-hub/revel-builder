@@ -23,3 +23,16 @@ export const createFormSchema = z.object({
   collectRating: z.boolean(),
 })
 export type CreateForm = z.infer<typeof createFormSchema>
+
+export const updateFormSchema = z.object({
+  id: z.string(),
+  name: z.string().min(1, "Please enter a name"),
+  projectId: z.string(),
+  pageTitle: z.string(),
+  introductoryMessage: z.string(),
+  promt: z.string(),
+  thankYouMessage: z.string(),
+  collectRating: z.boolean(),
+})
+
+export type UpdateForm = z.infer<typeof updateFormSchema>

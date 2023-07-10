@@ -3,6 +3,9 @@
 import React, { createContext, useReducer } from "react"
 
 type InitialStateType = {
+  companyName: string
+  companyLogo: string
+  companyWebsite: string
   pageTitle: string
   introMessage: string
   promt: string
@@ -16,6 +19,9 @@ type InitialStateType = {
 }
 
 const detailsData: InitialStateType = {
+  companyName: "",
+  companyLogo: "",
+  companyWebsite: "",
   pageTitle: "Share a testimonial!",
   introMessage:
     "We genuinely value your feedback and the opportunity to serve you better. Thank you in advance for taking the time to share your thoughts. Your testimonial will not only make a difference to us but also assist others in making informed decisions about our products/services.",
@@ -103,6 +109,21 @@ function reducer(state: InitialStateType, action: any) {
           step3: false,
           step4: false,
         },
+      }
+    case "details/company":
+      return {
+        ...state,
+        companyName: action.payload.companyName,
+        companyLogo: action.payload.companyLogo,
+        companyWebsite: action.payload.companyWebsite,
+      }
+    case "details/setForm":
+      return {
+        ...state,
+        pageTitle: action.payload.pageTitle,
+        introMessage: action.payload.introMessage,
+        promt: action.payload.promt,
+        thankYouMessage: action.payload.thankYouMessage,
       }
     default:
       // return error
