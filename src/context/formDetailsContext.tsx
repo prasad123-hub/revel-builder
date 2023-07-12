@@ -24,6 +24,17 @@ type InitialStateType = {
     customerAvatar: string
     customerDesignation: string
   }
+  testimonialDetails: {
+    id: string
+    imgUrl: string
+    customerName: string
+    customerEmail: string
+    customerDesignation: string
+    testimonialText: string
+    testimonialRating: number
+    createdAt: string
+    choosenImage: number
+  }
 }
 
 const detailsData: InitialStateType = {
@@ -50,6 +61,17 @@ const detailsData: InitialStateType = {
     customerEmail: "",
     customerAvatar: "",
     customerDesignation: "",
+  },
+  testimonialDetails: {
+    id: "",
+    imgUrl: "",
+    customerName: "",
+    customerEmail: "",
+    customerDesignation: "",
+    testimonialText: "",
+    testimonialRating: 0,
+    createdAt: "",
+    choosenImage: 1,
   },
 }
 
@@ -155,6 +177,21 @@ function reducer(state: InitialStateType, action: any) {
         customerResponse: {
           ...state.customerResponse,
           testimonialRating: action.payload,
+        },
+      }
+    case "details/testimonialDetails":
+      return {
+        ...state,
+        testimonialDetails: {
+          ...state.testimonialDetails,
+          id: action.payload.id,
+          imgUrl: action.payload.imgUrl,
+          customerName: action.payload.customerName,
+          customerEmail: action.payload.customerEmail,
+          customerDesignation: action.payload.customerDesignation,
+          testimonialText: action.payload.testimonialText,
+          testimonialRating: action.payload.testimonialRating,
+          createdAt: action.payload.createdAt,
         },
       }
     default:

@@ -10,6 +10,9 @@ export default async function TestimonialPage({
     where: {
       projectId: params.projectId,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
   })
 
   return (
@@ -23,7 +26,7 @@ export default async function TestimonialPage({
         </h1>
       </div>
 
-      <DataTableDemo data={testimonials as any} />
+      <DataTableDemo data={testimonials} />
     </div>
   )
 }
