@@ -48,7 +48,7 @@ export function FormItem({ form }: TestimonialItemProps) {
   const [showShareModal, setShowShareModal] = useState<boolean>(false)
 
   return (
-    <div className="flex items-center justify-between border border-border px-8 py-4">
+    <div className="flex items-center justify-between rounded-xl border border-border px-8 py-4">
       <div className="grid grow items-start gap-1">
         <Link
           href={`/form/c/${form.id}`}

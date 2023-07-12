@@ -1,85 +1,75 @@
 "use client"
 
-import { ColumnDef } from "@tanstack/react-table"
-import { ArrowUpDown, MoreHorizontal, MoreHorizontalIcon } from "lucide-react"
-
-import { Button } from "@/components/ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
-export type Payment = {
-  id: string
-  amount: number
-  status: "pending" | "processing" | "success" | "failed"
-  email: string
-}
+import { Testimonial } from "@/types"
+import { ColumnDef } from "@tanstack/react-table"
 
-export const columns: ColumnDef<Payment>[] = [
-  {
-    accessorKey: "status",
-    header: () => <div className="text-right">Amount</div>,
-    cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"))
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(amount)
+import { formatDate } from "@/lib/utils"
+import { StarRating } from "@/components/star-rating"
 
-      return <div className="text-right font-medium">{formatted}</div>
-    },
-  },
+export const columns: ColumnDef<Testimonial>[] = [
   {
-    accessorKey: "email",
+    accessorKey: "customerProfileImageUrl",
     header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Email
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      )
+      return <div className="ml-4">Person</div>
     },
-  },
-  {
-    accessorKey: "amount",
-    header: "Amount",
-  },
-  {
-    id: "actions",
     cell: ({ row }) => {
-      const payment = row.original
-
+      const name = row.original.customerName || ""
+      const designation = row.original.customerDesignation || ""
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
-            >
-              Copy payment ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div className="ml-4 flex items-center">
+          <div>
+            <img
+              className="inline-block h-9 w-9 rounded-full object-cover"
+              src={`${row.getValue("customerProfileImageUrl")}`}
+              alt=""
+            />
+          </div>
+          <div className="ml-3">
+            <p className="text-sm font-medium text-gray-700 group-hover:text-gray-900">
+              {name}
+            </p>
+            <p className="text-xs font-medium text-gray-500 group-hover:text-gray-700">
+              {designation}
+            </p>
+          </div>
+        </div>
       )
     },
+  },
+  {
+    accessorKey: "customerEmail",
+    header: () => <div className="ml-8 max-w-min">Email</div>,
+    cell: ({ row }) => {
+      return (
+        <div className="ml-8">
+          <p className="text-xs">{row.getValue("customerEmail")}</p>
+        </div>
+      )
+    },
+  },
+  {
+    accessorKey: "testimonial",
+    header: () => <div className="ml-8 max-w-min">Testimonials</div>,
+    cell: ({ row }) => {
+      const rating = row.original.rating
+      console.log(rating)
+      return (
+        <div className="ml-8 max-w-md">
+          <StarRating readOnly initialValue={rating} />
+          <p className="mt-2 text-xs">{row.getValue("testimonial")}</p>
+        </div>
+      )
+    },
+  },
+  {
+    accessorKey: "updatedAt",
+    header: () => <div className="max-w-min">Date</div>,
+    cell: ({ row }) => (
+      <div className="text-xs capitalize">
+        {formatDate(row.getValue("updatedAt"))}
+      </div>
+    ),
   },
 ]

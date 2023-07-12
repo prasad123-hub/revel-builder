@@ -27,3 +27,17 @@ export type Project = {
   createdAt: Date
   updatedAt: Date
 }
+
+export type Testimonial = {
+  id: string
+  formId: string
+  projectId: string
+  customerName: string
+  customerEmail: string
+  customerProfileImageUrl: string
+  customerDesignation: string
+  testimonial: string
+  rating: number
+  createdAt: Date
+  updatedAt: Date
+}

@@ -62,7 +62,7 @@ export function Sidebar() {
             </h2>
             <div className="space-y-1">
               <Link
-                href={`/project/testimonials?projectId=${projectId}`}
+                href={`/project/testimonials/${projectId}`}
                 className={cn(
                   buttonVariants({ variant: "ghost" }),
                   "w-full justify-start"

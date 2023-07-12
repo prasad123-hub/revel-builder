@@ -1,22 +1,16 @@
-import { StarRating } from "@/components/star-rating"
-import { columns, Payment } from "@/components/tables/testimonials/columns"
+import { db } from "@/lib/db"
 import { DataTableDemo } from "@/components/tables/testimonials/data-table"
 
-async function getData(): Promise<Payment[]> {
-  // Fetch data from your API here.
-  return [
-    {
-      id: "728ed52f",
-      amount: 100,
-      status: "pending",
-      email: "m@example.com",
+export default async function TestimonialPage({
+  params,
+}: {
+  params: { projectId: string }
+}) {
+  const testimonials = await db.response.findMany({
+    where: {
+      projectId: params.projectId,
     },
-    // ...
-  ]
-}
-
-export default async function TestimonialPage() {
-  const data = await getData()
+  })
 
   return (
     <div className="mx-auto w-full ">
@@ -29,7 +23,7 @@ export default async function TestimonialPage() {
         </h1>
       </div>
 
-      <DataTableDemo />
+      <DataTableDemo data={testimonials as any} />
     </div>
   )
 }

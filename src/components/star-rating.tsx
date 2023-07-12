@@ -4,7 +4,13 @@ import React, { useContext, useState } from "react"
 import { FormDetailsContext } from "@/context/formDetailsContext"
 import { Rating } from "react-simple-star-rating"
 
-export function StarRating({ readOnly }: { readOnly?: boolean }) {
+export function StarRating({
+  readOnly,
+  initialValue,
+}: {
+  readOnly?: boolean
+  initialValue?: number
+}) {
   const { state, dispatch } = useContext(FormDetailsContext)
 
   return (
@@ -20,7 +26,7 @@ export function StarRating({ readOnly }: { readOnly?: boolean }) {
             payload: rate,
           })
         }}
-        initialValue={state.customerResponse.testimonialRating}
+        initialValue={initialValue || state.customerResponse.testimonialRating}
         readonly={readOnly}
       />
     </div>

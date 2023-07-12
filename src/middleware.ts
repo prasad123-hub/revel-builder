@@ -2,7 +2,7 @@ import { NextResponse } from "next/server"
 import { authMiddleware } from "@clerk/nextjs"
 
 export default authMiddleware({
-  publicRoutes: ["/", "/sign-up", "sign-in", "/api(.*)"],
+  publicRoutes: ["/", "/sign-up", "/sign-in", "/api(.*)", "/form/t(.*)"],
   async afterAuth(auth, req) {
     if (auth.isPublicRoute) {
       // Don't do anything for public routes
