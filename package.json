@@ -17,7 +17,7 @@
   "dependencies": {
     "@clerk/nextjs": "^4.21.13",
     "@hookform/resolvers": "^3.1.1",
-    "@prisma/client": "^4.16.2",
+    "@prisma/client": "^5.0.0",
     "@radix-ui/react-alert-dialog": "^1.0.4",
     "@radix-ui/react-checkbox": "^1.0.4",
     "@radix-ui/react-collapsible": "^1.0.3",
@@ -53,6 +53,7 @@
     "react-dropzone": "^14.2.3",
     "react-hook-form": "^7.45.1",
     "react-simple-star-rating": "^5.1.7",
+    "resend": "^0.17.1",
     "sonner": "^0.5.0",
     "superjson": "^1.12.4",
     "svix": "^1.5.2",
@@ -67,6 +68,6 @@
     "@clerk/types": "^3.46.1",
     "@ianvs/prettier-plugin-sort-imports": "^4.0.2",
     "prettier-plugin-tailwindcss": "^0.3.0",
-    "prisma": "^4.16.2"
+    "prisma": "^5.0.0"
   }
 }

@@ -37,7 +37,7 @@ export const updateFormSchema = z.object({
 
 export type UpdateForm = z.infer<typeof updateFormSchema>
 
-export const createResponseScheme = z.object({
+export const createResponseSchema = z.object({
   formId: z.string(),
   projectId: z.string(),
   rating: z.number(),
@@ -48,4 +48,12 @@ export const createResponseScheme = z.object({
   customerProfileImageUrl: z.string(),
 })
 
-export type CreateResponse = z.infer<typeof createResponseScheme>
+export type CreateResponse = z.infer<typeof createResponseSchema>
+
+export const createContactSchema = z.object({
+  name: z.string(),
+  email: z.string(),
+  projectId: z.string(),
+})
+
+export type CreateContact = z.infer<typeof createContactSchema>

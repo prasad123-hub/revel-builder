@@ -1,10 +1,10 @@
 import { z } from "zod"
 
-import { createResponseScheme } from "@/lib/validator"
+import { createResponseSchema } from "@/lib/validator"
 import { procedure, protectedProcedure, router } from "@/app/server/trpc"
 
 export const responseRouter = router({
-  createResponse: procedure.input(createResponseScheme).mutation((opts) => {
+  createResponse: procedure.input(createResponseSchema).mutation((opts) => {
     console.log(opts.input)
     const newResponse = opts.ctx.db.response.create({
       data: {

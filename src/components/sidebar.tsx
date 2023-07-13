@@ -50,10 +50,16 @@ export function Sidebar() {
                 <Download className="mr-2 h-4 w-4" />
                 Import Testimonials
               </Button>
-              <Button variant="ghost" className="w-full justify-start">
+              <Link
+                href={`/project/contact/${projectId}`}
+                className={cn(
+                  buttonVariants({ variant: "ghost" }),
+                  "w-full justify-start"
+                )}
+              >
                 <UserCircle className="mr-2 h-4 w-4" />
                 Contacts
-              </Button>
+              </Link>
             </div>
           </div>
           <div className="px-3 py-2">
