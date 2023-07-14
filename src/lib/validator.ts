@@ -54,6 +54,9 @@ export const createContactSchema = z.object({
   name: z.string(),
   email: z.string(),
   projectId: z.string(),
+  subject: z.string(),
+  message: z.string(),
+  formId: z.string(),
 })
 
 export type CreateContact = z.infer<typeof createContactSchema>

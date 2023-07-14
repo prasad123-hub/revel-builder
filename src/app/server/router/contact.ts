@@ -1,6 +1,7 @@
 import { Resend } from "resend"
 
 import { createContactSchema } from "@/lib/validator"
+import { RevelInviteUserEmail } from "@/components/email-template"
 import { procedure, protectedProcedure, router } from "@/app/server/trpc"
 
 const resend = new Resend(process.env.RESEND_API_KEY)
@@ -20,8 +21,12 @@ export const contactRouter = router({
       const emailSent = await resend.emails.send({
         from: "noreply@revel.npmstack.com",
         to: opts.input.email,
-        subject: "Revel - Thank you for your interest",
-        html: "<p>Thank you for your interest in Revel. We will get back to you shortly.</p>",
+        subject: `${opts.input.subject} - ${opts.input.name}`,
+        react: RevelInviteUserEmail({
+          username: opts.input.name,
+          message: opts.input.message,
+          formId: opts.input.formId,
+        }),
       })
 
       if (!newContact || !emailSent) {

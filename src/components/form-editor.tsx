@@ -90,7 +90,7 @@ export function FormEditor({ form, project }: FormEditorProps) {
               Forms
             </Button>
           </Link>
-          <h1 className="mt-4 font-cal text-xl font-bold">New Form</h1>
+          <h1 className="mt-4 font-cal text-xl font-bold">Edit Form</h1>
           <div className="rounded-md py-4">
             <p className="bg-slate-50 p-4 text-sm text-muted-foreground">
               💡 Welcome to your collection form! Your form helps you collect

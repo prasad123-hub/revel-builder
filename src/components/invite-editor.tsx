@@ -19,9 +19,16 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 
+import { RevelInviteUserEmail } from "./email-template"
 import { Textarea } from "./ui/textarea"
 
-export function SheetDemo({ projectId }: { projectId: string }) {
+export function InviteEditor({
+  projectId,
+  formId,
+}: {
+  projectId: string
+  formId: string
+}) {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [name, setName] = useState("")
@@ -34,15 +41,26 @@ export function SheetDemo({ projectId }: { projectId: string }) {
   const mutation = trpc.contact.createResponse.useMutation()
 
   const handleSubmit = async () => {
+    if (!formId) {
+      toast.error("Please create a form")
+      return
+    }
+
     setLoading(true)
     const res = await mutation.mutateAsync({
       projectId: projectId as string,
       name,
       email,
+      subject,
+      message,
+      formId,
     })
     if (res) {
-      toast.success("Invitation sent!")
+      // close sheet when invite is sent
+
+      router.push(`/project/contact/${projectId}`)
       router.refresh()
+      toast.success("Invitation sent!")
     }
     setName("")
     setEmail("")
@@ -112,7 +130,7 @@ export function SheetDemo({ projectId }: { projectId: string }) {
           </div>
         </div>
         <Button onClick={handleSubmit} type="submit" className="mt-4">
-          Sent Invite
+          {loading ? "Sending..." : "Send Invite"}
         </Button>
         <hr className="mt-4" />
         <div className="mt-6">

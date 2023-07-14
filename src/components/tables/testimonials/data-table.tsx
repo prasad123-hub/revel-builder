@@ -96,10 +96,10 @@ export function DataTableDemo({ data }: { data: Testimonial[] }) {
                             <div className="font-medium text-gray-900">
                               {testimonial.customerName}
                             </div>
-                            <div className="mt-1 text-gray-500">
+                            <div className="mt-1 text-xs text-gray-500">
                               {testimonial.customerEmail}
                             </div>
-                            <div className="mt-1 text-gray-500">
+                            <div className="text-xs text-gray-500">
                               {testimonial.customerDesignation}
                             </div>
                           </div>
@@ -158,10 +158,10 @@ export function DataTableDemo({ data }: { data: Testimonial[] }) {
                             <div className="font-medium text-gray-900">
                               {testimonial.customerName}
                             </div>
-                            <div className="mt-1 text-gray-500">
+                            <div className="mt-1 text-xs text-gray-500">
                               {testimonial.customerEmail}
                             </div>
-                            <div className="mt-1 text-gray-500">
+                            <div className="text-xs text-gray-500">
                               {testimonial.customerDesignation}
                             </div>
                           </div>

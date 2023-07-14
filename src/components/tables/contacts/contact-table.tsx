@@ -10,15 +10,30 @@ import { StarRating } from "@/components/star-rating"
 import { TestimonialDetails } from "@/components/testimonial-details"
 
 interface Props {
-  id: string
-  projectId: string
-  name: string
-  email: string
-  createdAt: Date
-  updatedAt: Date
+  data: {
+    id: string
+    projectId: string
+    name: string
+    email: string
+    createdAt: Date
+    updatedAt: Date
+  }[]
+  responses: {
+    id: string
+    formId: string
+    projectId: string
+    customerName: string
+    customerEmail: string
+    customerProfileImageUrl: string
+    customerDesignation: string
+    testimonial: string
+    rating: number
+    createdAt: Date
+    updatedAt: Date
+  }[]
 }
 
-export function ContactTable({ data }: { data: Props[] }) {
+export function ContactTable({ data, responses }: Props) {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const { state, dispatch } = useContext(FormDetailsContext)
   const user = useUser()
@@ -74,20 +89,41 @@ export function ContactTable({ data }: { data: Props[] }) {
                 </thead>
 
                 <tbody className="divide-y divide-gray-200 bg-white">
-                  <tr className="cursor-pointer transition-colors hover:bg-gray-50">
-                    <td className="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
-                      Prasad
-                    </td>
-                    <td className="whitespace-pre-wrap px-3 py-5 text-sm text-gray-500">
-                      narkhedkarprasad@gmail.com
-                    </td>
-                    <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-                      Invite sent
-                    </td>
-                    <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-                      Not Collected
-                    </td>
-                  </tr>
+                  {data.map((contact) => (
+                    <tr
+                      key={contact.id}
+                      className="cursor-pointer transition-colors hover:bg-gray-50"
+                    >
+                      <td className="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
+                        {contact.name}
+                      </td>
+                      <td className="whitespace-pre-wrap px-3 py-5 text-sm text-gray-500">
+                        {contact.email}
+                      </td>
+                      <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
+                        <span className="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">
+                          Invite Sent
+                        </span>
+                      </td>
+                      <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
+                        {responses.filter(
+                          (customer) => customer.customerEmail === contact.email
+                        ).length > 0 ? (
+                          <div>
+                            <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+                              Collected
+                            </span>
+                          </div>
+                        ) : (
+                          <div>
+                            <span className="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">
+                              Not Collected
+                            </span>
+                          </div>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             ) : (
