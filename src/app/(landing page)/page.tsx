@@ -50,7 +50,7 @@ export default async function LandingPage() {
             </div>
             <div className="relative mt-10 lg:col-span-5 lg:mt-0 xl:col-span-6">
               <Image
-                src="/feature1.png"
+                src="/f1.png"
                 alt="Revel Hero"
                 width={1200}
                 height={800}
@@ -75,10 +75,10 @@ export default async function LandingPage() {
             </div>
             <div className="lg:order-0 relative mt-10 lg:col-span-5 lg:mt-0 xl:col-span-6">
               <Image
-                src="/feature2.png"
+                src="/f2.png"
                 alt="Revel Hero"
                 width={1200}
-                height={800}
+                height={500}
                 className="rounded-lg"
               />
             </div>
