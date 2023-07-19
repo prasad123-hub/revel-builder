@@ -109,7 +109,7 @@ export function Sidebar() {
 
       <div className="flex w-full items-center justify-between border-b border-border p-4 lg:hidden">
         <Sheet>
-          <SheetTrigger>
+          <SheetTrigger asChild>
             <Button variant="ghost" size="sm" className="w-full justify-start">
               <Menu className="h-4 w-4" />
             </Button>
