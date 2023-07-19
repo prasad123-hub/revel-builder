@@ -5,7 +5,6 @@ import { protectedProcedure, router } from "@/app/server/trpc"
 
 export const formRouter = router({
   createForm: protectedProcedure.input(createFormSchema).mutation((opts) => {
-    console.log(opts.input)
     const newForm = opts.ctx.db.form.create({
       data: {
         name: opts.input.name,
@@ -17,8 +16,6 @@ export const formRouter = router({
         collectRating: opts.input.collectRating,
       },
     })
-
-    console.log("newForm", newForm)
 
     if (!newForm) {
       throw new Error("Error creating project")

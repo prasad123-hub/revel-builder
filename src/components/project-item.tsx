@@ -4,6 +4,7 @@ import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { Project } from "@/types"
 import { toast } from "sonner"
 
 import { trpc } from "@/lib/trpc"
@@ -22,17 +23,6 @@ import { Skeleton } from "@/components/ui/skeleton"
 
 import { Icons } from "./icons"
 import { Button, buttonVariants } from "./ui/button"
-
-interface Project {
-  id: string
-  companyName: string
-  companyDescription: string
-  companyUrl: string
-  companyLogo: string
-  projectOwnerId: string
-  createdAt: Date
-  updatedAt: Date
-}
 
 interface ProjectItemProps {
   project: Project

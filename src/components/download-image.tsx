@@ -24,7 +24,9 @@ export function DownloadAsImage({
         link.click()
       })
       .catch((err) => {
-        console.log(err)
+        if (err instanceof Error) {
+          console.error(err.message)
+        }
       })
   }, [editorRef])
 

@@ -1,20 +1,12 @@
 import Link from "next/link"
+import { Project } from "@/types"
 import { currentUser } from "@clerk/nextjs"
 
 import { db } from "@/lib/db"
 import { cn } from "@/lib/utils"
-import { Button, buttonVariants } from "@/components/ui/button"
+import { buttonVariants } from "@/components/ui/button"
 import { EmptyPlaceholder } from "@/components/empty-placeholder"
 import { ProjectItem } from "@/components/project-item"
-
-interface Project {
-  id: number
-  name: string
-  description: string
-  url: string
-  image: string
-  createdAt?: Date
-}
 
 export default async function DashbaordPage() {
   const user = await currentUser()
@@ -48,7 +40,7 @@ export default async function DashbaordPage() {
         </div>
         {projects.length > 0 ? (
           <>
-            {projects.map((project) => (
+            {projects.map((project: Project) => (
               <ProjectItem key={project.id} project={project} />
             ))}
           </>

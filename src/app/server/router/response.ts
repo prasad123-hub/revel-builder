@@ -5,7 +5,6 @@ import { procedure, protectedProcedure, router } from "@/app/server/trpc"
 
 export const responseRouter = router({
   createResponse: procedure.input(createResponseSchema).mutation((opts) => {
-    console.log(opts.input)
     const newResponse = opts.ctx.db.response.create({
       data: {
         formId: opts.input.formId,

@@ -72,8 +72,6 @@ export function StepThreeForm({
             })
           : null
 
-        console.log("profile", images)
-
         // Create project
         const response = await mutation.mutateAsync({
           formId: formId as string,
