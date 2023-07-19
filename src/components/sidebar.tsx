@@ -27,8 +27,9 @@ export function Sidebar() {
       {/* Static sidebar for desktop */}
       <div className="relative hidden border-r border-border lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
         <div className="px-8 pt-8">
-          <Link href="/">
+          <Link href="/" className="inline-flex items-center space-x-2">
             <Image src="/revel.svg" alt="Revel" width={30} height={30} />
+            <h1 className="font-cal text-xl">Revel</h1>
           </Link>
         </div>
         <div className="px-6 pt-4">
@@ -116,8 +117,9 @@ export function Sidebar() {
           <SheetContent side={"left"}>
             <div>
               <div className="px-2 pt-8">
-                <Link href="/">
+                <Link href="/" className="inline-flex items-center space-x-2">
                   <Image src="/revel.svg" alt="Revel" width={30} height={30} />
+                  <h1 className="font-cal text-xl">Revel</h1>
                 </Link>
               </div>
               <div className="px-2 pt-4">

@@ -2,6 +2,7 @@ import Image from "next/image"
 
 import { Button } from "@/components/ui/button"
 import { InfiniteTestimonialCards } from "@/components/infinite-testimonial-cards"
+import { TestimonialWall } from "@/components/testimonial-wall"
 
 export default async function LandingPage() {
   return (
@@ -22,7 +23,7 @@ export default async function LandingPage() {
             width={2000}
             height={1000}
             alt={`Cover Image for Revel`}
-            src="https://framerusercontent.com/images/EGTVSqL50owfg7FWdDiNTuPwaE.png?scale-down-to=2048"
+            src="/hero.png"
           />
         </div>
       </section>
@@ -39,7 +40,7 @@ export default async function LandingPage() {
                 Collect
               </h3>
               <h1 className="max-w-xl py-6 font-cal text-4xl font-bold md:text-5xl">
-                Let your customers share what they love about you
+                Build your testimonial form as you want -
               </h1>
               <p className="mt-2 text-lg text-muted-foreground">
                 Revel makes it easy for your happy customers to leave you a
@@ -49,10 +50,11 @@ export default async function LandingPage() {
             </div>
             <div className="relative mt-10 lg:col-span-5 lg:mt-0 xl:col-span-6">
               <Image
-                src="https://framerusercontent.com/images/EGTVSqL50owfg7FWdDiNTuPwaE.png?scale-down-to=2048"
+                src="/feature1.png"
                 alt="Revel Hero"
                 width={1200}
                 height={800}
+                className="rounded-lg"
               />
             </div>
           </div>
@@ -63,7 +65,7 @@ export default async function LandingPage() {
                 Collect
               </h3>
               <h1 className="max-w-xl py-6 font-cal text-4xl font-bold md:text-5xl">
-                Let your customers share what they love about you
+                Collect testimonials from your customers with email.
               </h1>
               <p className="mt-2 text-lg text-muted-foreground">
                 Revel makes it easy for your happy customers to leave you a
@@ -73,10 +75,11 @@ export default async function LandingPage() {
             </div>
             <div className="lg:order-0 relative mt-10 lg:col-span-5 lg:mt-0 xl:col-span-6">
               <Image
-                src="https://framerusercontent.com/images/EGTVSqL50owfg7FWdDiNTuPwaE.png?scale-down-to=2048"
+                src="/feature2.png"
                 alt="Revel Hero"
                 width={1200}
                 height={800}
+                className="rounded-lg"
               />
             </div>
           </div>
@@ -87,13 +90,14 @@ export default async function LandingPage() {
         aria-label="features-section"
         className="py-12 md:py-14 lg:py-20"
       >
-        <h3 className="bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-fuchsia-500 via-red-600 to-orange-400 bg-clip-text font-hand text-2xl font-semibold text-transparent">
+        <h3 className="bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-fuchsia-500 via-red-600 to-orange-400 bg-clip-text text-center font-hand text-2xl font-semibold text-transparent">
           Wall of Love
         </h3>
-        <h1 className="max-w-xl py-6 font-cal text-4xl font-bold md:text-5xl">
+        <h1 className="mx-auto max-w-xl py-6 text-center font-cal text-4xl font-bold md:text-5xl">
           Let your customers share what they love about you
         </h1>
-        <InfiniteTestimonialCards />
+        {/* <InfiniteTestimonialCards /> */}
+        <TestimonialWall />
       </section>
     </>
   )
