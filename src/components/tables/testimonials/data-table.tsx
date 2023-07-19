@@ -105,7 +105,7 @@ export function DataTableDemo({ data }: { data: Testimonial[] }) {
                           </div>
                         </div>
                       </td>
-                      <td className="whitespace-pre-wrap px-10 py-5 text-sm text-gray-500">
+                      <td className="whitespace-nowrap px-10 py-5 text-sm text-gray-500 lg:whitespace-pre-wrap">
                         <StarRating
                           readOnly
                           initialValue={testimonial.rating}
@@ -167,7 +167,7 @@ export function DataTableDemo({ data }: { data: Testimonial[] }) {
                           </div>
                         </div>
                       </td>
-                      <td className="whitespace-pre-wrap px-10 py-5 text-sm text-gray-500">
+                      <td className="whitespace-nowrap px-10 py-5 text-sm text-gray-500 lg:whitespace-pre-wrap">
                         <StarRating
                           readOnly
                           initialValue={testimonial.rating}
