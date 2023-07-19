@@ -19,7 +19,6 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
 import { Skeleton } from "@/components/ui/skeleton"
-import { ProjectOperation } from "@/components/project-operation"
 
 import { Icons } from "./icons"
 import { Button, buttonVariants } from "./ui/button"
@@ -77,7 +76,6 @@ export function ProjectItem({ project }: ProjectItemProps) {
           </p>
         </div>
       </div>
-      {/* <ProjectOperation id={project.id} title={project.companyName} /> */}
       <div className="space-x-2">
         <Link
           href={`/project/testimonials/${project.id}`}

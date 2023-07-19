@@ -10,7 +10,6 @@ import { SiteFooter } from "./site-footer"
 import { buttonVariants } from "./ui/button"
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const { isSignedIn } = useUser()
   return (
     <>
       <div className="hidden w-full bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-fuchsia-500 via-red-600 to-orange-400 py-2 text-center text-xs font-semibold text-white md:block">

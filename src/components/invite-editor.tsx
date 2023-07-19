@@ -10,16 +10,13 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import {
   Sheet,
-  SheetClose,
   SheetContent,
   SheetDescription,
-  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
 
-import { RevelInviteUserEmail } from "./email-template"
 import { Textarea } from "./ui/textarea"
 
 export function InviteEditor({

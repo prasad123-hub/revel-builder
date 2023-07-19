@@ -17,7 +17,6 @@ import { toast } from "sonner"
 
 import { cn, formatBytes } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
 import { Icons } from "@/components/icons"
 
 interface FileDialogProps<TFieldValues extends FieldValues>
@@ -102,12 +101,6 @@ export function FileDialog<TFieldValues extends FieldValues>({
 
   return (
     <>
-      {/* <DialogTrigger asChild>
-        <Button variant="outline" disabled={disabled}>
-          Upload Images
-          <span className="sr-only">Upload Images</span>
-        </Button>
-      </DialogTrigger> */}
       <div className="sm:max-w-[480px]">
         <p className="absolute left-5 top-4 text-base font-medium text-muted-foreground">
           Upload your images

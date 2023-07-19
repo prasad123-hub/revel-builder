@@ -16,19 +16,11 @@ import {
 
 import { cn } from "@/lib/utils"
 import { Button, buttonVariants } from "@/components/ui/button"
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 
 export function Sidebar() {
   const { user } = useUser()
   const pathname = usePathname()
-  const [isOpen, setIsOpen] = useState(false)
   const projectId = pathname.split("/")[3]
   return (
     <>
@@ -117,12 +109,7 @@ export function Sidebar() {
       <div className="flex w-full items-center justify-between border-b border-border p-4 lg:hidden">
         <Sheet>
           <SheetTrigger>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setIsOpen(true)}
-              className="w-full justify-start"
-            >
+            <Button variant="ghost" size="sm" className="w-full justify-start">
               <Menu className="h-4 w-4" />
             </Button>
           </SheetTrigger>

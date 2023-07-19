@@ -1,10 +1,9 @@
 "use client"
 
 import { useCallback, useEffect, useState } from "react"
-import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { Check, Copy, Share, Share2 } from "lucide-react"
+import { Check, Copy, Share2 } from "lucide-react"
 import { toast } from "sonner"
 
 import { useCopyToClipboard } from "@/lib/copy-to-clipboard"
@@ -21,7 +20,6 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
 import { Skeleton } from "@/components/ui/skeleton"
-import { ProjectOperation } from "@/components/project-operation"
 
 import { Icons } from "./icons"
 import { Button, buttonVariants } from "./ui/button"
