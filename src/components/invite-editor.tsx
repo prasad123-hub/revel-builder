@@ -41,11 +41,6 @@ export function InviteEditor({
   const mutation = trpc.contact.createResponse.useMutation()
 
   const handleSubmit = async () => {
-    if (!formId) {
-      toast.error("Please create a form")
-      return
-    }
-
     setLoading(true)
     const res = await mutation.mutateAsync({
       projectId: projectId as string,
@@ -65,6 +60,11 @@ export function InviteEditor({
     setName("")
     setEmail("")
     setLoading(false)
+  }
+
+  if (!formId) {
+    router.push(`/project/forms/${projectId}`)
+    return
   }
 
   return (

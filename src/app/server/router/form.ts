@@ -68,4 +68,32 @@ export const formRouter = router({
 
       return updatedForm
     }),
+
+  deleteForm: protectedProcedure
+    .input(z.object({ id: z.string(), projectId: z.string() }))
+    .mutation(async (opts) => {
+      const deletedForm = await opts.ctx.db.form.delete({
+        where: {
+          id: opts.input.id,
+        },
+      })
+
+      const deleteFormResponses = await opts.ctx.db.response.deleteMany({
+        where: {
+          formId: opts.input.id,
+        },
+      })
+
+      const deleteContacts = await opts.ctx.db.contact.deleteMany({
+        where: {
+          projectId: opts.input.projectId,
+        },
+      })
+
+      if (!deletedForm || !deleteFormResponses) {
+        throw new Error("Error deleting form")
+      }
+
+      return deletedForm
+    }),
 })

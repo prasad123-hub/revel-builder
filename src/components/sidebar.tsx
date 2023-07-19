@@ -46,10 +46,16 @@ export function Sidebar() {
                 <FormInput className="mr-2 h-4 w-4" />
                 Forms
               </Link>
-              <Button variant="ghost" className="w-full justify-start">
+              <Link
+                href={`/project/import/${projectId}`}
+                className={cn(
+                  buttonVariants({ variant: "ghost" }),
+                  "w-full justify-start"
+                )}
+              >
                 <Download className="mr-2 h-4 w-4" />
                 Import Testimonials
-              </Button>
+              </Link>
               <Link
                 href={`/project/contact/${projectId}`}
                 className={cn(

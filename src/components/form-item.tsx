@@ -3,9 +3,12 @@
 import { useCallback, useEffect, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { Check, Copy, Share, Share2 } from "lucide-react"
+import { toast } from "sonner"
 
 import { useCopyToClipboard } from "@/lib/copy-to-clipboard"
+import { trpc } from "@/lib/trpc"
 import { cn, formatDate } from "@/lib/utils"
 import {
   AlertDialog,
@@ -36,6 +39,7 @@ interface Form {
   name: string
   createdAt: Date
   updatedAt: Date
+  projectId: string
 }
 
 interface TestimonialItemProps {
@@ -43,9 +47,12 @@ interface TestimonialItemProps {
 }
 
 export function FormItem({ form }: TestimonialItemProps) {
+  const router = useRouter()
   const [showDeleteAlert, setShowDeleteAlert] = useState<boolean>(false)
   const [isDeleteLoading, setIsDeleteLoading] = useState<boolean>(false)
   const [showShareModal, setShowShareModal] = useState<boolean>(false)
+
+  const mutatate = trpc.form.deleteForm.useMutation()
 
   return (
     <div className="flex items-center justify-between rounded-xl border border-border px-8 py-4">
@@ -82,7 +89,7 @@ export function FormItem({ form }: TestimonialItemProps) {
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>
-              Are you sure you want to delete this snap?
+              Are you sure you want to delete this form?
             </AlertDialogTitle>
             <AlertDialogDescription>
               This action cannot be undone.
@@ -92,14 +99,22 @@ export function FormItem({ form }: TestimonialItemProps) {
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
               onClick={async (event) => {
-                // event.preventDefault()
-                // setIsDeleteLoading(true)
-                // const deleted = await deleteSnap(id)
-                // if (deleted) {
-                //   setIsDeleteLoading(false)
-                //   setShowDeleteAlert(false)
-                //   router.refresh()
-                // }
+                event.preventDefault()
+                setIsDeleteLoading(true)
+                const deleted = await mutatate.mutateAsync({
+                  id: form.id,
+                  projectId: form.projectId,
+                })
+                if (deleted) {
+                  setIsDeleteLoading(false)
+                  setShowDeleteAlert(false)
+                  toast.success("Form deleted successfully")
+                  router.refresh()
+                } else {
+                  setIsDeleteLoading(false)
+                  setShowDeleteAlert(false)
+                  toast.error("Something went wrong")
+                }
               }}
               className="bg-red-600 focus:ring-red-600"
             >

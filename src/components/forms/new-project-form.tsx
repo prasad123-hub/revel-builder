@@ -76,9 +76,8 @@ export function NewProjectform() {
         // If project is created, redirect to project page
         if (project) {
           setLoading(false)
-          const name = project.companyName.split(".")[0].toLowerCase()
           toast.success("Project created successfully!")
-          router.push(`/project/${name}`)
+          router.push(`/project/testimonials/${project.id}`)
         }
       } catch (error) {
         error instanceof Error

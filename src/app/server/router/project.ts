@@ -45,4 +45,37 @@ export const projectRouter = router({
 
       return project
     }),
+  deleteProjectById: protectedProcedure
+    .input(z.object({ projectId: z.string() }))
+    .mutation(async (opts) => {
+      const project = await opts.ctx.db.project.delete({
+        where: {
+          id: opts.input.projectId,
+        },
+      })
+
+      const forms = await opts.ctx.db.form.deleteMany({
+        where: {
+          projectId: opts.input.projectId,
+        },
+      })
+
+      const responses = await opts.ctx.db.response.deleteMany({
+        where: {
+          projectId: opts.input.projectId,
+        },
+      })
+
+      const contacts = await opts.ctx.db.contact.deleteMany({
+        where: {
+          projectId: opts.input.projectId,
+        },
+      })
+
+      if (!project || !contacts || !responses || !forms) {
+        throw new Error("Error deleting project")
+      }
+
+      return project
+    }),
 })

@@ -3,7 +3,10 @@
 import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { toast } from "sonner"
 
+import { trpc } from "@/lib/trpc"
 import { cn, formatDate } from "@/lib/utils"
 import {
   AlertDialog,
@@ -37,12 +40,22 @@ interface ProjectItemProps {
 }
 
 export function ProjectItem({ project }: ProjectItemProps) {
+  const router = useRouter()
   const [showDeleteAlert, setShowDeleteAlert] = useState<boolean>(false)
   const [isDeleteLoading, setIsDeleteLoading] = useState<boolean>(false)
 
+  const mutatate = trpc.project.deleteProjectById.useMutation()
+
+  function deleteProject({ projectId }: { projectId: string }) {
+    setIsDeleteLoading(true)
+    mutatate.mutateAsync({
+      projectId,
+    })
+  }
+
   return (
-    <div className="flex items-center justify-between border border-border py-4 pr-8">
-      <div className="mx-8 w-[150px]">
+    <div className="flex items-center justify-between border border-border py-4 pr-4">
+      <div className="mx-8">
         <Image
           src={project.companyLogo}
           width={32}
@@ -84,7 +97,7 @@ export function ProjectItem({ project }: ProjectItemProps) {
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>
-              Are you sure you want to delete this snap?
+              Are you sure you want to delete this project?
             </AlertDialogTitle>
             <AlertDialogDescription>
               This action cannot be undone.
@@ -94,14 +107,21 @@ export function ProjectItem({ project }: ProjectItemProps) {
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
               onClick={async (event) => {
-                // event.preventDefault()
-                // setIsDeleteLoading(true)
-                // const deleted = await deleteSnap(id)
-                // if (deleted) {
-                //   setIsDeleteLoading(false)
-                //   setShowDeleteAlert(false)
-                //   router.refresh()
-                // }
+                event.preventDefault()
+                setIsDeleteLoading(true)
+                const deleted = await mutatate.mutateAsync({
+                  projectId: project.id,
+                })
+                if (deleted) {
+                  setIsDeleteLoading(false)
+                  setShowDeleteAlert(false)
+                  toast.success("Project deleted successfully")
+                  router.refresh()
+                } else {
+                  toast.error("Something went wrong")
+                  setIsDeleteLoading(false)
+                  setShowDeleteAlert(false)
+                }
               }}
               className="bg-red-600 focus:ring-red-600"
             >
